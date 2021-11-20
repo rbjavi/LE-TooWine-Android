@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#FF9688</color>
+    <color name="primary_shadow">#B2695F</color>
+    <color name="secondary">#C63637</color>
+    <color name="light">#FFCCBC</color>
+    <color name="dark">#232323</color>
+    <color name="dark_shadow">#33000000</color>
+    <color name="background">#8f7193</color>
+    <color name="secondary_background">#a788ab</color>
+    <color name="text">#FFCCBC</color>
+    <color name="live">#FFFA2828</color>
+    <color name="on_boarding">#E2504C</color>
+    <color name="icon_navbottom_bar">#f9d99a</color>
+</resources>

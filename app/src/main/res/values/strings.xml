@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">TooWine</string>
+
+    <!-- OnboardingActivity   -->
+    <string name="onboarding_getStarted">Comenzar</string>
+    <string name="onboarding_next" />
+    <string name="onboarding_skip">saltar</string>
+
+    <!-- OnboardingItemContainer -->
+    <string name="onboarding_textview_title">titulo</string>
+    <string name="onboarding_textview_description">descripcion body</string>
+
+    <!--  OnboardingData  -->
+    <string name="onboarding_pag0_title">Bienvenido a TooWine</string>
+    <string name="onboarding_pag0_description">Siéntete como en una vinoteca, donde podrás explorar hasta los últimos aromas de los vinos más populares del territorio nacional</string>
+    <string name="onboarding_pag1_title">Vinoteca</string>
+    <string name="onboarding_pag1_description">Organizados por clases, tendrá un listado detallado con las botellas de vinos más populares del mercado</string>
+    <string name="onboarding_pag2_title">Favoritos</string>
+    <string name="onboarding_pag2_description">¿Eres indeciso? ¿Elegirías la mayoría?\n Agrega en tu "maleta" las botellas de vino que vayan siendo de tu agrado para una posterior compra o visualización de los detalles</string>
+    <string name="onboarding_pag3_title">Noticias Vinícolas</string>
+    <string name="onboarding_pag3_description">¡Estate al loro!\n Mantente actualizado con lo último sobre vinos y bodegas. Enriquecerás y puede ser de ayuda en tu elección</string>
+
+    <!--  Bottom_Navigation_Menu   -->
+    <string name="text_label_1">Home</string>
+    <string name="text_label_2">Wines</string>
+    <string name="text_label_3">Favs</string>
+    <string name="text_label_4">RSS</string>
+    <string name="text_label_5">SomeWhere</string>
+
+    <!--  HomeWine_Recycler_Items   -->
+    <string name="wine_name">Name</string>
+    <string name="wine_type">Type</string>
+    <string name="wine_price">Price</string>
+    <string name="homewine_item_favorite">favorite icon</string>
+    <string name="winehome_item_wineimage">wine image</string>
+    <string name="fragment_favorites">FAVORITOS</string>
+    <string name="wine_collections">Wine Collections</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_wine_collections">Wine Collections</string>
+
+    <!-- homewine_recycler_items    -->
+    <string name="nombre_vino">nombre vino</string>
+    <string name="tipo_vino">tipo</string>
+    <string name="precio_vino">precio</string>
+    <string name="wine_image">Imagen de vino</string>
+    <string name="precio_original_vino">precio original</string>
+    <string name="purchase_wine">comprar</string>
+    <string name="onboarding_images">Onboarding Images Content</string>
+
+</resources>

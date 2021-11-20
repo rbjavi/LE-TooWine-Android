@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.jruizb.toowine.fragments.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/wineCollectionFragment"
+        android:name="com.jruizb.toowine.fragments.WineCollectionFragment"
+        android:label="Wine Collections"
+        tools:layout="@layout/fragment_wine_collection" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.jruizb.toowine.fragments.FavoritesFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.jruizb.toowine.fragments.NewsFragment"
+        android:label="News"
+        tools:layout="@layout/fragment_news" />
+</navigation>

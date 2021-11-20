@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/on_boarding"
+    tools:context=".onboarding.Onboarding">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/onboardingViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/view_pager_background"
+        app:layout_constraintBottom_toTopOf="@id/onboardingViewCenterOfNext"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/onboardingTextVSaltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/onboarding_skip"
+        android:textColor="@color/on_boarding"
+        android:fontFamily="@font/mukta_semibold"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <ImageView
+        android:id="@+id/onboardingImageVNext"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="183dp"
+        android:layout_marginEnd="183dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/icon_background"
+        android:contentDescription="@string/onboarding_next"
+        android:src="@drawable/ic_round_right"
+        app:layout_constraintBottom_toTopOf="@+id/onboardingButtonGetStarted"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/light" />
+
+    <View
+        android:id="@+id/iconOuterOfNext"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/icon_outer_background"
+        app:layout_constraintBottom_toBottomOf="@+id/onboardingImageVNext"
+        app:layout_constraintEnd_toEndOf="@id/onboardingImageVNext"
+        app:layout_constraintStart_toStartOf="@id/onboardingImageVNext"
+        app:layout_constraintTop_toTopOf="@+id/onboardingImageVNext"/>
+
+    <View
+        android:id="@+id/onboardingViewCenterOfNext"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/onboardingImageVNext"
+        app:layout_constraintEnd_toEndOf="@id/onboardingImageVNext"
+        app:layout_constraintStart_toStartOf="@id/onboardingImageVNext"
+        app:layout_constraintTop_toTopOf="@+id/onboardingImageVNext"/>
+
+    <LinearLayout
+        android:id="@+id/indicatorsContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/onboardingButtonGetStarted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:backgroundTint="@color/color_state_material_button_getstart"
+        android:text="@string/onboarding_getStarted"
+        android:textColor="@color/light"
+        android:fontFamily="@font/mukta_medium"
+        android:textSize="15sp"
+        app:cornerRadius="20dp"
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
