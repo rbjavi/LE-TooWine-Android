@@ -25,7 +25,7 @@
     <string name="text_label_2">Wines</string>
     <string name="text_label_3">Favs</string>
     <string name="text_label_4">RSS</string>
-    <string name="text_label_5">SomeWhere</string>
+    <string name="text_label_5">Login</string>
 
     <!--  HomeWine_Recycler_Items   -->
     <string name="wine_name">Name</string>
@@ -36,7 +36,9 @@
     <string name="fragment_favorites">FAVORITOS</string>
     <string name="wine_collections">Wine Collections</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- nav fragment titles-->
+    <string name="favorite_blank_fragment">favorites fragment</string>
+    <string name="news_blank_fragment">News fragment</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fragment_wine_collections">Wine Collections</string>
 
@@ -48,5 +50,31 @@
     <string name="precio_original_vino">precio original</string>
     <string name="purchase_wine">comprar</string>
     <string name="onboarding_images">Onboarding Images Content</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+    <!--    Login   -->
+    <string name="login">Iniciar Sesión</string>
+    <string name="login_caption">Login con tu cuenta existente</string>
+    <string name="email_hint_text">Email</string>
+    <string name="password_hint_text">Contraseña</string>
+    <string name="login_button">Login</string>
+    <string name="login_already_have_account_sign_up">¿Aún no estás registrado? Crear cuenta</string>
+    <string name="profile_logout">logout</string>
+    <string name="sign_up">Registrarse</string>
+    <string name="name_hint_text">Nombre</string>
+    <string name="signup_confirm_password_hint_text">Confirmar Contraseña</string>
+    <string name="login_forgot_password">¿Olvidaste la Contraseña?</string>
+    <string name="provider_email">Provider email</string>
+    <string name="latest_wine_deals">Novedades</string>
+    <string name="profile_caption">Estás logueado como...</string>
+    <string name="name_profile">Nombre de usuario</string>
 
 </resources>

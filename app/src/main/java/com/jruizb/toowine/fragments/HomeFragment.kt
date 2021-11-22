@@ -1,6 +1,7 @@
 package com.jruizb.toowine.fragments
 
 import android.annotation.SuppressLint
+import android.media.metrics.Event
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,11 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jruizb.toowine.databinding.FragmentHomeBinding
+import com.jruizb.toowine.databinding.HomewineRecyclerItemsBinding
 import com.jruizb.toowine.domain.WineItems
 import com.jruizb.toowine.home.HomeRecyclerAdapter
 import com.jruizb.toowine.util.Constants.FUN
 import com.jruizb.toowine.util.Constants.NO_PRICE_WINE_RECYCLER
 import com.jruizb.toowine.util.Constants.NO_TYPE_WINE_RECYCLER
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jsoup.Jsoup
 import java.security.KeyManagementException
@@ -25,13 +28,16 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
-import kotlin.concurrent.thread
 
 
 class HomeFragment : Fragment() {
 
+    private lateinit var _recyclerBinding: HomewineRecyclerItemsBinding
+
+    //    private val recyclerBinding get() = _recyclerBinding!!
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
 
     private val wineologoList = ArrayList<WineItems>()
 
@@ -67,7 +73,7 @@ class HomeFragment : Fragment() {
         var wineCurrentPrice: String
         var wineOriginalPrice: String
 
-        thread {
+        doAsync {
             val doc = Jsoup.connect(
                 "https://www.drinksco.es/productos:o:ofertas"
             ).sslSocketFactory(socketFactory()).get()
@@ -109,7 +115,7 @@ class HomeFragment : Fragment() {
                     )
                 )
             }
-            this.runOnUiThread() {
+            runOnUiThread {
                 //No puede acceder a los elementos UI desde el hilo background
                 context?.let {
                     //Le paso al adapter el contexto que es en este caso el de Main Activity y la lista
@@ -122,6 +128,17 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    //FIX THIS
+    private fun updateEvent(event: Event) {
+        _recyclerBinding.wineStarImageButton.setOnClickListener() {
+            deleteEvent(event)
+        }
+    }
+    //******
+    private fun deleteEvent(event: Event) {
+
     }
 
     /**

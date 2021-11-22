@@ -19,6 +19,20 @@
     <color name="icon_navbottom_bar">#f9d99a</color>
     <color name="inactive_dots_onboarding">#4AFF7214</color>
 <!--    <color name="current_price">#FF6200EE</color>-->
-    <color name="current_price">#039BE5</color>
-    <color name="origina_price">#33000000</color>
+    <color name="amber_400">#FFCA28</color>
+    <color name="amber_700">#FFA000</color>
+    <color name="orange_700">#F57C00</color>
+    <color name="cyan_blue_600">#039BE5</color>
+    <color name="navy_blue">#2C384A</color>
+    <color name="deep_orange_coral">#FF8A65</color>
+    <color name="blue_gray_50">#ECEFF1</color>
+
+<!--    Login fragment-->
+    <color name="ligth_gray">#F5F5F5</color>
+    <color name="medium_gray">#757575</color>
+    <color name="gray_ashes">#27333A</color>
+    <color name="medium_brown">#5D4037</color>
+
+<!--    transparent background-->
+    <color name="transparent">#00000000</color>
 </resources>

@@ -32,16 +32,19 @@
             app:layout_constraintWidth_percent=".3"
             tools:ignore="ImageContrastCheck" />
 
-        <ImageView
-            android:id="@+id/wineStarView"
+        <ImageButton
+            android:id="@+id/wineStarImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/color_state_material_wine_star_fav"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/transparent"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="@+id/wineImageView"
             app:layout_constraintTop_toTopOf="@+id/wineImageView"
-            app:srcCompat="@drawable/ic_baseline_star_24" />
+            app:srcCompat="@drawable/ic_baseline_star_24"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/wineName"
@@ -83,7 +86,7 @@
             android:gravity="fill_vertical"
             android:padding="5dp"
             android:text="@string/precio_vino"
-            android:textColor="@color/current_price"
+            android:textColor="@color/cyan_blue_600"
             android:textSize="22sp"
             app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintStart_toStartOf="@+id/wineDenominacion"
@@ -98,7 +101,7 @@
             android:gravity="fill_vertical"
             android:padding="5dp"
             android:text="@string/precio_original_vino"
-            android:textColor="@color/origina_price"
+            android:textColor="@color/medium_gray"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/wineCurrentPrice"
             app:layout_constraintEnd_toEndOf="@+id/wineDenominacion"
@@ -109,7 +112,7 @@
 
         <View
             android:id="@+id/divider3"
-            android:layout_width="226dp"
+            android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
@@ -126,7 +129,7 @@
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/secondary"
             android:text="@string/purchase_wine"
-            android:textColor="@color/icon_navbottom_bar"
+            android:textColor="@color/medium_brown"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/wineOriginalPrice"
             app:layout_constraintHorizontal_bias="0.0"

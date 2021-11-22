@@ -3,9 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable-v24/shape_edittext2.xml" value="0.14814814814814814" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable-v24/shape_edittext3.xml" value="0.14814814814814814" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/gradient_background1.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.15555555555555556" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_baseline_delete_outline_24.xml" value="0.15555555555555556" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_24.xml" value="0.24027777777777778" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.23657407407407408" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.15046296296296297" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_baseline_star_border_24.xml" value="0.15046296296296297" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_colored_star.xml" value="0.15046296296296297" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_outline_star.xml" value="0.15046296296296297" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_outstar.xml" value="0.15046296296296297" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_round_right.xml" value="0.24027777777777778" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_shadow_star.xml" value="0.15046296296296297" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_shadowfore_star.xml" value="0.15046296296296297" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_star.xml" value="0.15046296296296297" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/icon_background.xml" value="0.2703125" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/icon_outer_background.xml" value="0.2703125" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/indicators_active_background.xml" value="0.1300925925925926" />
@@ -18,14 +31,18 @@
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/activity_launch.xml" value="0.264" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/activity_onboarding.xml" value="0.2" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/favoritewine_recycler_items.xml" value="0.264" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_blank.xml" value="0.22592592592592592" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_fav.xml" value="0.11574074074074074" />
-        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_favorites.xml" value="0.11574074074074074" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_favorites.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_home.xml" value="0.16799999999999998" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_login.xml" value="0.264" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_news.xml" value="0.22592592592592592" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_profile.xml" value="0.3503030303030303" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_signup.xml" value="0.4" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_wine_collection.xml" value="0.11574074074074074" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_wine_collections.xml" value="0.10324074074074074" />
-        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/homewine_recycler_items.xml" value="0.2" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/homewine_recycler_items.xml" value="0.72" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/nav_graph.xml" value="0.11574074074074074" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/onboarding_item_container.xml" value="0.2" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/winecollection_fg_recycler_items.xml" value="0.22592592592592592" />

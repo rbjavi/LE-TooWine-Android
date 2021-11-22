@@ -28,6 +28,23 @@ object PreferencesProvider {
         editor.putBoolean(key.value, value).apply()
     }
 
+     fun saveState(context: Context, isFavourite: Boolean) {
+        val aSharedPreferences: SharedPreferences = this.prefs(
+            context
+        )
+        val aSharedPreferencesEdit = aSharedPreferences
+            .edit()
+        aSharedPreferencesEdit.putBoolean("State", isFavourite)
+        aSharedPreferencesEdit.apply()
+    }
+
+     fun readState(context: Context,): Boolean {
+        val aSharedPreferenes: SharedPreferences = this.prefs(
+            context
+        )
+        return aSharedPreferenes.getBoolean("State", true)
+    }
+
     fun bool(context: Context, key: PreferencesKey): Boolean? {
         return prefs(context).getBoolean(key.value, false)
     }
