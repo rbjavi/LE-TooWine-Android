@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "80362343546",
+    "project_id": "toowine-4ca04",
+    "storage_bucket": "toowine-4ca04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80362343546:android:2e60f5e3f92b3389483fc3",
+        "android_client_info": {
+          "package_name": "com.jruizb.toowine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80362343546-7t057r227nrlh65ej3bcbo0v1e2dmjp8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jruizb.toowine",
+            "certificate_hash": "920210fc957f03c2eaa2085a9efe36ea3d989bda"
+          }
+        },
+        {
+          "client_id": "80362343546-ihp4v6e2gl20afug4rda8nacpul6dtr6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtWc14UUvQNqgWwNBPkt8nJpiIUEMlk5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80362343546-ihp4v6e2gl20afug4rda8nacpul6dtr6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
