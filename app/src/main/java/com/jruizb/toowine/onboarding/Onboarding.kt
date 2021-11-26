@@ -18,8 +18,7 @@ import com.jruizb.toowine.preferences.PreferencesProvider
 
 class Onboarding : AppCompatActivity() {
     private lateinit var binding: ActivityOnboardingBinding
-    //    private lateinit var indicatorsContainer: LinearLayout
-//    private lateinit var viewModel: OnboardingViewModel
+
     private var currentPositionPager: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,66 +28,56 @@ class Onboarding : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        binding.onboardingButtonGetStarted.visibility = View.INVISIBLE
+
         setOnboardingItems()
         setupDotIndicators()
         setCurrentIndicatorPosition(0)
-//        viewModel = ViewModelProvider(this).get(OnboardingViewModel::class.java)
+
     }
 
 
     private fun setOnboardingItems() {
         val onboardingItemsAdapter = OnboardingItemsAdapter(this,OnboardingData.onboardingItemsAdapter)
         binding.onboardingViewPager.adapter = onboardingItemsAdapter
-//            OnboardingItemsAdapter(this, OnboardingData.onboardingItemsAdapter)
 
         with(binding) {
             onboardingViewPager.registerOnPageChangeCallback(
                 object : ViewPager2.OnPageChangeCallback() {
-
+                    //Cuando una página del contenedor view ager sea seleccionada indica la posición
+                    // en la que se encuentra del total
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
                         setCurrentIndicatorPosition(position)
                         currentPositionPager = position
-
-//                        if (currentPositionPager == onboardingItemsAdapter.itemCount -1) {
-//                            onboardingButtonGetStarted.visibility = View.VISIBLE
-//                        } else {
-//                            onboardingButtonGetStarted.visibility = View.INVISIBLE
-//                        }
+                        //Botón getStarted será habilitado cuando sea la posición última de de los elementos del recyclerview
                         onboardingButtonGetStarted.isEnabled = currentPositionPager == onboardingItemsAdapter.itemCount -1
-//                        onboardingButtonGetStarted.visibility = if (position < onboardingData.itemCount ) View.INVISIBLE else View.VISIBLE
                     }
-                })
+                }
+            )
             (onboardingViewPager.getChildAt(0) as RecyclerView).overScrollMode =
                 RecyclerView.OVER_SCROLL_NEVER
             //Next ImageView Button
             onboardingImageVNext.setOnClickListener {
-//                if (onboardingViewPager.currentItem + 1 < onboardingData.itemCount) {
-//                    onboardingViewPager.currentItem += 1
-//                } else {
-//                    navigateTo()
-//                }
                 if (currentPositionPager  < onboardingItemsAdapter.itemCount - 1) {
                     currentPositionPager += 1
                     onboardingViewPager.setCurrentItem(currentPositionPager, true)
                 }
             }
-            //skip Text
+            //skip Text Button
+            //Guarda en shared preferences si se ha saltado el onboarding (true) y se navega directamente
+            //a la actividad Home de la aplicación
             onboardingTextVSaltar.setOnClickListener {
                 PreferencesProvider.set(this@Onboarding ,PreferencesKey.ONBOARDING,true)
                 navigateTo()
                 finish()
             }
             //Get started Button
+            //Guarda en shared preferences si se ha llegado al final de las vistas de onboarding (True)
+            // y se navega directamente a la actividad Home de la aplicación
             onboardingButtonGetStarted.setOnClickListener {
-                if (onboardingViewPager.currentItem == onboardingItemsAdapter.itemCount -1) {
-                    PreferencesProvider.set(this@Onboarding ,PreferencesKey.ONBOARDING,true)
-                    navigateTo()
-                    finish()
-                } //else {
-//                    navigateTo()
-//                }
+                PreferencesProvider.set(this@Onboarding ,PreferencesKey.ONBOARDING,true)
+                navigateTo()
+                finish()
             }
         }
     }
@@ -101,6 +90,10 @@ class Onboarding : AppCompatActivity() {
         finish()
     }
 
+    /**
+     * Dibuja el diseño y situa programáticamente la posición de los puntos en la que estarán situados
+     * onborading en la actividad onboarding
+     */
     private fun setupDotIndicators() {
         val onboardingItemsAdapter = OnboardingData.onboardingItemsAdapter
         val indicators = arrayOfNulls<ImageView>(onboardingItemsAdapter.size)
@@ -123,10 +116,15 @@ class Onboarding : AppCompatActivity() {
         }
     }
 
+    /**
+     * Indica, mediante un color activo, en cuál posición de los puntos nos encontramos del total
+     * de vistas definidas para el onboarding.
+     */
     private fun setCurrentIndicatorPosition(position: Int) {
         val indicators = binding.indicatorsContainer
         val childCount = indicators.childCount
         for (i in 0 until childCount) {
+            //almacena y obtiene la vista a la posición específica en el grupo
             val imageView = indicators.getChildAt(i) as ImageView
             if (i == position) {
                 imageView.setImageDrawable(

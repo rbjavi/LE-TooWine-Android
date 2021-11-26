@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".usercases.ProfileFragment">
+    tools:context=".usecases.ProfileFragment">
 
     <!--    show info of the logged user , and logout button-->
 
@@ -34,14 +34,7 @@
         android:textAlignment="center"
         style="@style/TextAppearance.MaterialComponents.Headline5"/>
 
-    <TextView
-        android:id="@+id/providerProfile"
-        style="@style/TextAppearance.MaterialComponents.Headline6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/provider_email"
-        android:textAlignment="center" />
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/logoutProfileButton"

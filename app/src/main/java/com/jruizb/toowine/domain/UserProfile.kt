@@ -8,8 +8,8 @@ package com.jruizb.toowine.domain
  * A fecha 22/11/2021
  */
 data class UserProfile(
-    var name:String,
-    var email:String,
-    var pass:String,
-    var confirmPass:String
+    var name:String = "",
+    var email:String= "",
+    var pass:String= "",
+    var confirmPass:String = ""
 )

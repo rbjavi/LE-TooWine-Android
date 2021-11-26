@@ -12,7 +12,10 @@ import androidx.preference.PreferenceManager
  * A fecha 12/10/2021
  */
 enum class PreferencesKey(val value: String) {
-    ONBOARDING("onboarding")
+    ONBOARDING("onboarding"),
+    IS_LOGGED_IN("logged_in"),
+    USER_NAME("username")
+
 }
 
 
@@ -47,6 +50,10 @@ object PreferencesProvider {
 
     fun bool(context: Context, key: PreferencesKey): Boolean? {
         return prefs(context).getBoolean(key.value, false)
+    }
+
+    fun getString(context: Context, key: PreferencesKey): String? {
+        return prefs(context).getString(key.value, "")
     }
 
 

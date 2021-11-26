@@ -13,4 +13,6 @@ object Constants {
     const val NO_TYPE_WINE_RECYCLER = "No type"
     const val NO_PRICE_WINE_RECYCLER = "No price"
     const val FUN = "FUNCTION: "
+
+
 }

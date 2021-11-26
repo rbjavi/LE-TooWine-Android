@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,10 +15,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jruizb.toowine.R
 import com.jruizb.toowine.databinding.ActivityHomeBinding
 import com.jruizb.toowine.databinding.ActivityHomeBinding.inflate
+import com.jruizb.toowine.databinding.FragmentLoginBinding
 import com.jruizb.toowine.domain.WineItems
 import com.jruizb.toowine.onboarding.Onboarding
 import com.jruizb.toowine.preferences.PreferencesKey
 import com.jruizb.toowine.preferences.PreferencesProvider
+import org.jetbrains.anko.activityManager
 import org.jsoup.Jsoup
 import kotlin.concurrent.thread
 
@@ -26,6 +30,8 @@ import kotlin.concurrent.thread
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var  bindingHome: ActivityHomeBinding
+
+    private lateinit var bindingLoginFragment: FragmentLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +44,7 @@ class HomeActivity : AppCompatActivity() {
 
         /* Configuración del controlador de bottomNavigationBar y UI ActionBar label */
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigatin_view)
-        //Retorna el FragmentManager para interactuar con los fragmentos asociodos a esta actividad
+        //Retorna el FragmentManager para interactuar con los fragmentos asociados a esta actividad
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         //El NavHostFragment provee un area dentro del layout para que ocurra la navegación entre fragments
         val navController = navHostFragment.navController
@@ -51,20 +57,35 @@ class HomeActivity : AppCompatActivity() {
 
 
     /**
-     *  Función para comprobar si es la primera vez usada en ese dispositivo, se activa la vista inicial onboarding
+     *  Función que valida si onboarding ya ha sido inicializada por primera vez, si obtiene true
+     *  navega directamente a la actividad principal Home
      */
     private fun setupOnboarding() {
-        if (onboarding(this)) {
+        if (isOnboardingOnSharedPreferences(this)) {
             startActivity(Intent(this@HomeActivity, Onboarding::class.java))
         }
     }
 
     /**
-     * Función que comprueba si esta guardado en ese dispositivo el par clave-valor para saber si es
-     * el primer uso de la app y, por lo tanto, mostrar o no la vista onboarding inicial
+     * Función que comprueba y devuelve true, si ya está guardado en ese dispositivo el par clave-valor
+     * o, false, si no y es la primera vez que se inicializa en este dispositivo
      */
-    private fun onboarding(context: Context): Boolean {
+    private fun isOnboardingOnSharedPreferences(context: Context): Boolean {
         return !(PreferencesProvider.bool(context, PreferencesKey.ONBOARDING) ?: false)
     }
+
+    fun replaceFragment(fragment: Fragment) {
+        val transaction = this.supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, fragment)
+        transaction.commit()
+    }
+//    private fun navigateToSignup() {
+//        bindingLoginFragment.signUpLoginTV.setOnClickListener {
+//            val signupF =
+//                val fragment =
+//                    supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+//
+//        }
+//    }
 
 }
