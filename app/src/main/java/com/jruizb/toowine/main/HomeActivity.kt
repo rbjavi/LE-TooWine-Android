@@ -1,45 +1,36 @@
-package com.jruizb.toowine.home
+package com.jruizb.toowine.main
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jruizb.toowine.R
 import com.jruizb.toowine.databinding.ActivityHomeBinding
 import com.jruizb.toowine.databinding.ActivityHomeBinding.inflate
-import com.jruizb.toowine.databinding.FragmentLoginBinding
-import com.jruizb.toowine.domain.WineItems
 import com.jruizb.toowine.onboarding.Onboarding
 import com.jruizb.toowine.preferences.PreferencesKey
 import com.jruizb.toowine.preferences.PreferencesProvider
-import org.jetbrains.anko.activityManager
-import org.jsoup.Jsoup
-import kotlin.concurrent.thread
-
-
 
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var  bindingHome: ActivityHomeBinding
 
-    private lateinit var bindingLoginFragment: FragmentLoginBinding
+//    private lateinit var bindingLoginFragment: FragmentLoginBinding
+private var runnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        installSplashScreen()
+
         bindingHome = inflate(layoutInflater)
         setContentView(bindingHome.root)
-//        setTheme(R.style.Theme_TooWine)
-//        setContentView(R.layout.activity_home)
-//        setTheme(R.style.SplashTheme)
         setupOnboarding()
 
         /* Configuración del controlador de bottomNavigationBar y UI ActionBar label */
@@ -52,13 +43,19 @@ class HomeActivity : AppCompatActivity() {
         //Configura la navegación entre fragments para concocer cuando un elemento del menú está seleccionado
         //El elemento seleccionado en el NavigationView se actualizará cuando el destino cambie
         bottomNavigationView.setupWithNavController(navController)
+
     }
 
 
 
+
+
+
+
     /**
-     *  Función que valida si onboarding ya ha sido inicializada por primera vez, si obtiene true
-     *  navega directamente a la actividad principal Home
+     *  Función que valida si onboarding ya ha sido inicializada por primera vez, si obtiene false
+     *  se inicia la actividad onboarding; en cambio, si es true, se inicia directamente
+     *  la actividad principal Home que está definida en el manifest por defecto
      */
     private fun setupOnboarding() {
         if (isOnboardingOnSharedPreferences(this)) {
@@ -71,11 +68,13 @@ class HomeActivity : AppCompatActivity() {
      * o, false, si no y es la primera vez que se inicializa en este dispositivo
      */
     private fun isOnboardingOnSharedPreferences(context: Context): Boolean {
-        return !(PreferencesProvider.bool(context, PreferencesKey.ONBOARDING) ?: false)
+        return !(PreferencesProvider.getBool(context, PreferencesKey.ONBOARDING) ?: false)
     }
 
     fun replaceFragment(fragment: Fragment) {
         val transaction = this.supportFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left,
+                R.anim.fade_in, R.anim.fade_out)
         transaction.replace(R.id.fragmentContainer, fragment)
         transaction.commit()
     }

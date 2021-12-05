@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#FF9688</color>
+    <color name="primary">#F57C00</color>
+    <!--    <color name="primary">#E47F83</color>-->
+    <!--    <color name="primary_shadow">#B2695F</color>-->
+    <!--    <color name="secondary">#f3764a</color>-->
     <color name="primary_shadow">#B2695F</color>
-    <color name="secondary">#C63637</color>
+    <color name="secondary">#FFA000</color>
+    <!--    <color name="secondary">#C63637</color>-->
     <color name="light">#FFCCBC</color>
     <color name="dark">#232323</color>
     <color name="dark_shadow">#33000000</color>
-    <color name="background">#8f7193</color>
-    <color name="secondary_background">#a788ab</color>
-    <color name="text">#FFCCBC</color>
+    <color name="background">#FFFFFFFF</color>
+    <color name="secondary_background">#FFF0F0FF</color>
+    <color name="text">#FF0D0D0D</color>
     <color name="live">#FFFA2828</color>
-    <color name="on_boarding">#E2504C</color>
+    <color name="on_boarding">#F57C00</color>
+    <!--    <color name="on_boarding">#E2504C</color>-->
     <color name="icon_navbottom_bar">#f9d99a</color>
+    <color name="inactive_dots_onboarding">#4AFF7214</color>
+    <!--    <color name="current_price">#FF6200EE</color>-->
+    <color name="amber_400">#FFCA28</color>
+    <color name="amber_700">#FFA000</color>
+    <color name="orange_700">#F57C00</color>
+    <color name="cyan_blue_600">#039BE5</color>
+    <color name="navy_blue">#2C384A</color>
+    <color name="deep_orange_coral">#FF8A65</color>
+    <color name="blue_gray_50">#ECEFF1</color>
+
+    <!--    Login fragment-->
+    <color name="ligth_gray">#F5F5F5</color>
+    <color name="medium_gray">#757575</color>
+    <color name="gray_ashes">#27333A</color>
+    <color name="medium_brown">#5D4037</color>
+
+    <!--    transparent background-->
+    <color name="transparent">#00000000</color>
 </resources>

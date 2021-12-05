@@ -2,6 +2,7 @@ package com.jruizb.toowine.usecases.account
 
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import androidx.fragment.app.Fragment
@@ -9,23 +10,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jruizb.toowine.R
 import com.jruizb.toowine.databinding.FragmentLoginBinding
-import com.jruizb.toowine.domain.UserLogin
-import com.jruizb.toowine.domain.UserProfile
-import com.jruizb.toowine.home.HomeActivity
+import com.jruizb.toowine.main.HomeActivity
+import com.jruizb.toowine.preferences.PreferencesKey
+import com.jruizb.toowine.preferences.PreferencesProvider
+import com.jruizb.toowine.usecases.DashBoard
+import com.google.firebase.auth.UserProfileChangeRequest
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class LoginFragment : Fragment(), View.OnClickListener {
+
+
+
+
+class LoginFragment : Fragment(){
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
@@ -33,13 +34,13 @@ class LoginFragment : Fragment(), View.OnClickListener {
     private val firebaseFirestoreInstance = FirebaseFirestore.getInstance()
     private lateinit var progressDialog: ProgressDialog
 
-    private val homeActivity:HomeActivity? = null
     private var activityContext: Context? = null
+    private var home: HomeActivity? = null
 
-    private var email = ""
-    private var password = ""
+    private var emailLogin = ""
+    private var passwordLogin = ""
 
-
+    private var runnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,16 +54,13 @@ class LoginFragment : Fragment(), View.OnClickListener {
         // Inflate the layout for this fragment
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
-//        return inflater.inflate(R.layout.fragment_login, container, false)
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         //Contexto de la actividad a la que está asociada este fragment
         activityContext = context
-
 
         //Inicializacion de firebase para obtener una instancia de ese objeto
         firebaseAuth = FirebaseAuth.getInstance()
@@ -72,19 +70,27 @@ class LoginFragment : Fragment(), View.OnClickListener {
             progressDialog.setTitle("Cargando...")
             progressDialog.setCanceledOnTouchOutside(false)
         }
-
-
         //obtiene la vista del botón para ir al fragment de registrarse y al clicar
         // se le pasa el contexto de este fragment
 //        val action = view.findViewById<View>(R.id.signUpLoginTV)
 //            action.setOnClickListener(this)
-        binding.signUpLoginTV.setOnClickListener(this) //Necesario para pasar al otro fragment a que se quiere navegar
+        //Necesario para pasar al otro fragment a que se quiere navegar
+        binding.signUpLoginTV.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
+//            replaceFromFragmentToFragment(SignupFragment())
+        }
 
         binding.loginMaterialButton.setOnClickListener {
-
             validateData()
         }
+
     }
+
+    override fun onResume() {
+        super.onResume()
+        runnable?.run()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -97,32 +103,38 @@ class LoginFragment : Fragment(), View.OnClickListener {
 //        }
 //    }
 
+
+
     /**
      * Función que al clicar sobre el evento del botón <si no tienes una cuenta, regístrate>
      * navega desde el fragment de Login hasta el fragment de Registrarse mediante una acción
      * establecida en en nav_graph hacia un destination
      */
-    override fun onClick(view: View?) {
-        if (view != null){
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_signupFragment)
-        }
-    }
+//    override fun onClick(view: View?) {
+//        if (view != null){
+//            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_signupFragment)
+//        }
+//    }
+
 
     private fun validateData() {
         //input user data login
-        email = binding.emailET.text.toString().trim()
-        password = binding.passwordET.text.toString().trim()
+        emailLogin = binding.emailETLogin.text.toString().trim()
+        passwordLogin = binding.passwordETLogin.text.toString().trim()
 
         //Validate data
         when {
+            emailLogin.isEmpty() -> {
+            Toast.makeText(context,requireActivity().getString(R.string.email_not_empty),Toast.LENGTH_SHORT).show()
+            }
             //Comprobación del formato de email
-            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+            !Patterns.EMAIL_ADDRESS.matcher(emailLogin).matches() -> {
                 Toast.makeText(context,requireActivity().getString(R.string.invalid_email),Toast.LENGTH_SHORT).show()
             }
-            password.isEmpty() -> {
+            passwordLogin.isEmpty() -> {
                 Toast.makeText(context,requireActivity().getString(R.string.pass_not_empty),Toast.LENGTH_SHORT).show()
             }
-            password.length < 6 -> {
+            passwordLogin.length < 6 -> {
                 Toast.makeText(context,requireActivity().getString(R.string.pass_less_length),Toast.LENGTH_SHORT).show()
             }
             else -> {
@@ -133,18 +145,28 @@ class LoginFragment : Fragment(), View.OnClickListener {
     }
 
     private fun loginUser() {
+        val user = firebaseAuth.currentUser
+
         progressDialog.setMessage("logueándose...")
         progressDialog.show()
         //Loguearse en Firebase Auth
-        firebaseAuth.signInWithEmailAndPassword(email, password)
+        firebaseAuth.signInWithEmailAndPassword(emailLogin, passwordLogin)
             .addOnSuccessListener {
-                progressDialog.dismiss()
-//                replaceFromFragmentToFragment(ProfileFragment())
-                //Navega mediante una acción definida en el navigation graph hacia otro fragment
+                context?.let { it1 ->
+                    progressDialog.dismiss()
+    //                replaceFromFragmentToFragment(ProfileFragment())
+                    PreferencesProvider.set(it1,PreferencesKey.EMAIL, emailLogin)
+                    PreferencesProvider.set(it1,PreferencesKey.IS_LOGGED_IN,true)
+                    val profileUpdates =
+                        UserProfileChangeRequest.Builder().setDisplayName("John Smith").build()
 
-                findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
-                Toast.makeText(context,requireActivity().getString(R.string.login_welcome),Toast.LENGTH_LONG).show()
+                    user?.updateProfile(profileUpdates)
                 }
+                Toast.makeText(context,requireActivity().getString(R.string.login_welcome),Toast.LENGTH_LONG).show()
+
+                //Navega mediante una acción definida en el navigation graph hacia profile fragment
+                findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
+            }
 
             .addOnFailureListener { e ->
                 progressDialog.dismiss()
@@ -153,15 +175,21 @@ class LoginFragment : Fragment(), View.OnClickListener {
             }
     }
 
-
-
+    private fun navToDashBoard() {
+        startActivity(Intent(requireContext(),DashBoard::class.java))
+    }
 
 
    private fun replaceFromFragmentToFragment(fragment: Fragment) {
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+//        transaction.replace(R.id.fragmentContainer, fragment)
+//        transaction.addToBackStack(null)
+//        transaction.commit()
+       val transaction = requireActivity().supportFragmentManager.beginTransaction()
+           .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left,
+               R.anim.fade_in, R.anim.fade_out)
+       transaction.replace(R.id.fragmentContainer, fragment)
+       transaction.commit()
     }
 
 

@@ -7,24 +7,24 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.jruizb.toowine.fragments.HomeFragment"
+        android:name="com.jruizb.toowine.menunavigation.home.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/wineCollectionFragment"
-        android:name="com.jruizb.toowine.fragments.WineCollectionFragment"
-        android:label="Wine Collections"
-        tools:layout="@layout/fragment_wine_collection" />
+        android:name="com.jruizb.toowine.menunavigation.winecollection.WineCollectionsFragment"
+        android:label="Wine_Collections"
+        tools:layout="@layout/fragment_wine_collections" />
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.jruizb.toowine.fragments.FavoritesFragment"
+        android:name="com.jruizb.toowine.menunavigation.favorites.FavoritesFragment"
         android:label="Favorites"
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.jruizb.toowine.fragments.NewsFragment"
+        android:name="com.jruizb.toowine.menunavigation.newsfeeds.NewsFeedsFragment"
         android:label="News"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news_feeds" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.jruizb.toowine.usecases.account.LoginFragment"
@@ -43,8 +43,10 @@
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" >
         <action
-            android:id="@+id/action_signupFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            android:id="@+id/action_signupFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@animator/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"

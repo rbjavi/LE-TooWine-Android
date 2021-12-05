@@ -48,6 +48,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    //For SplashScreen
+    implementation 'androidx.core:core-splashscreen:1.0.0-alpha02'
 
     //For saving shared preferences in key-value data
     implementation 'androidx.preference:preference-ktx:1.1.1'
@@ -72,8 +74,6 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
-
-    implementation 'androidx.core:core-splashscreen:1.0.0-alpha02'
 
     //For user authentication, store data in cloud firestore and google analytics
     implementation platform('com.google.firebase:firebase-bom:29.0.0')

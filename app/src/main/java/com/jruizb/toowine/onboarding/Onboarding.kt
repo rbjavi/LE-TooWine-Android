@@ -2,7 +2,6 @@ package com.jruizb.toowine.onboarding
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -10,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.jruizb.toowine.home.HomeActivity
+import com.jruizb.toowine.main.HomeActivity
 import com.jruizb.toowine.R
 import com.jruizb.toowine.databinding.ActivityOnboardingBinding
 import com.jruizb.toowine.preferences.PreferencesKey
@@ -22,10 +21,8 @@ class Onboarding : AppCompatActivity() {
     private var currentPositionPager: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        Thread.sleep(1200)
-//        setTheme(R.style.SplashTheme)
-
         super.onCreate(savedInstanceState)
+
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -43,7 +40,7 @@ class Onboarding : AppCompatActivity() {
         with(binding) {
             onboardingViewPager.registerOnPageChangeCallback(
                 object : ViewPager2.OnPageChangeCallback() {
-                    //Cuando una página del contenedor view ager sea seleccionada indica la posición
+                    //Cuando una página del contenedor view pager sea seleccionada indica la posición
                     // en la que se encuentra del total
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
@@ -56,6 +53,7 @@ class Onboarding : AppCompatActivity() {
             )
             (onboardingViewPager.getChildAt(0) as RecyclerView).overScrollMode =
                 RecyclerView.OVER_SCROLL_NEVER
+
             //Next ImageView Button
             onboardingImageVNext.setOnClickListener {
                 if (currentPositionPager  < onboardingItemsAdapter.itemCount - 1) {
@@ -67,7 +65,7 @@ class Onboarding : AppCompatActivity() {
             //Guarda en shared preferences si se ha saltado el onboarding (true) y se navega directamente
             //a la actividad Home de la aplicación
             onboardingTextVSaltar.setOnClickListener {
-                PreferencesProvider.set(this@Onboarding ,PreferencesKey.ONBOARDING,true)
+                PreferencesProvider.set(this@Onboarding , PreferencesKey.ONBOARDING,true)
                 navigateTo()
                 finish()
             }
@@ -83,7 +81,7 @@ class Onboarding : AppCompatActivity() {
     }
 
     /**
-     * Navega a la actividad inicial
+     * Navega a la actividad inicial Home
      */
     private fun navigateTo() {
         startActivity(Intent(applicationContext, HomeActivity::class.java))

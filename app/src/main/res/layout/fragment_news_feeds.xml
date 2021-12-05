@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".menunavigation.newsfeeds.NewsFeedsFragment">
+
+    <TextView
+        android:id="@+id/titleLabelNewsFragment"
+        style="@style/TextAppearance.MaterialComponents.Headline4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_edittext"
+        android:elevation="20dp"
+        android:text="@string/news_fragment"
+        android:textAlignment="center"
+        android:textColor="@color/medium_gray" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fgNewsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

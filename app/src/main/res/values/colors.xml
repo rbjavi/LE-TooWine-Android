@@ -35,4 +35,5 @@
 
 <!--    transparent background-->
     <color name="transparent">#00000000</color>
+    <color name="t_icon">#888888</color>
 </resources>

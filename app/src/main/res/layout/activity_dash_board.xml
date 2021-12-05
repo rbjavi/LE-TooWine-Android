@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".usecases.DashBoard">
+
+    <!--    show info of the logged user , and logout button-->
+
+    <TextView
+        android:id="@+id/captionUserLogged"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/profile_caption"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/nameProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/name_profile"
+        android:textAlignment="center"
+        style="@style/TextAppearance.MaterialComponents.Headline4"/>
+
+    <TextView
+        android:id="@+id/emailProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/email_hint_text"
+        android:textAlignment="center"
+        style="@style/TextAppearance.MaterialComponents.Headline5"/>
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logoutProfileButton"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:backgroundTint="@color/orange_700"
+        android:text="@string/profile_logout"/>
+
+</LinearLayout>

@@ -8,26 +8,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jruizb.toowine.R
 import com.jruizb.toowine.databinding.FragmentSignupBinding
 import com.jruizb.toowine.domain.UserProfile
-import com.jruizb.toowine.home.HomeActivity
+import com.jruizb.toowine.main.HomeActivity
 import java.util.*
 import kotlin.collections.HashMap
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SignupFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class SignupFragment : Fragment() {
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
 
-    private val homeActivity:HomeActivity? = null
+    private val homeActivity: HomeActivity? = null
 
     private lateinit var profile: UserProfile
 
@@ -50,7 +47,6 @@ class SignupFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -68,11 +64,10 @@ class SignupFragment : Fragment() {
         }
 
         binding.registerMaterialButton.setOnClickListener {
-//            Log.i("CL","HE ENTRADO POR EL  ON CLICK LISTENER")
+//            Log.i("CL","ENTRANDO POR EL EVENTO CLICK LISTENER")
             validateData()
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -85,15 +80,11 @@ class SignupFragment : Fragment() {
         }
     }
 
-
-
+    /**
+     * Función para validar los datos del registro de usuario
+     */
     private fun validateData() {
         var userList = mutableListOf<String>()
-
-//        profile.name = binding.nameET.text.toString().trim()
-//        profile.email = binding.emailET.text.toString().trim()
-//        profile.pass = binding.passwordET.text.toString().trim()
-//        profile.confirmPass = binding.confirmPasswordET.text.toString().trim()
 
         name = binding.nameET.text.toString().trim()
         email = binding.emailET.text.toString().trim()
@@ -120,10 +111,9 @@ class SignupFragment : Fragment() {
                 Toast.makeText(context,requireActivity().getString(R.string.pasword_not_match),Toast.LENGTH_SHORT).show()
             }
             else -> {
-                createUserAccount()
+                createUserAccount() //llamada a la función para crear un usuario en firebase auth si los datos son válidos
             }
-    }
-
+        }
     }
 
     /**
@@ -134,13 +124,10 @@ class SignupFragment : Fragment() {
         progressDialog.setMessage("Creando cuenta")
         progressDialog.show()
 
-        //Creacion de email y contraseña en Firebase auth
+        //Creación de email y contraseña en Firebase auth
         firebaseAuth.createUserWithEmailAndPassword(email, pass)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    updateUserInfo()
-                }
-
+            .addOnSuccessListener {
+                updateUserInfo()
             }
             .addOnFailureListener { e ->
                 progressDialog.dismiss()
@@ -154,12 +141,12 @@ class SignupFragment : Fragment() {
      * Guardar los datos en cloud firestore database
      */
     private fun updateUserInfo() {
-        progressDialog.setMessage("Guardando informacion del usuario")
+        progressDialog.setMessage("Guardando información del usuario")
         val timestamp = System.currentTimeMillis()
         val date = Date(timestamp)  //parsea los milisengundos del sistema a fecha
 //        val dt = Instant.ofEpochSecond(timestamp).atZone(ZoneId.systemDefault()).toLocalDateTime()
 
-        //id creado por firebaseauth y se lo pasamos a cada usuario que se registre como ID autogenerado
+        //id autogenerado por firebaseauth y se lo pasamos a la variable uid
         val  uid = firebaseAuth.uid
 
         val userAccountHashMap: HashMap<String, Any?> = hashMapOf(
@@ -169,14 +156,14 @@ class SignupFragment : Fragment() {
             "profileImage" to "",
             "timestamp" to date
         )
-
+        //Inserta el usuario que se acaba de registrar en la colección client si es exitoso
         val db = FirebaseFirestore.getInstance().collection("client")
             db.document().set(userAccountHashMap)
                 .addOnSuccessListener {
                     progressDialog.dismiss()
                     Toast.makeText(context,requireActivity().getString(R.string.successful_saving_user_info),Toast.LENGTH_SHORT).show()
-                    homeActivity?.replaceFragment(LoginFragment())
-//                        .replace(R.id.fragmentContainer, ,"")
+                    //Navega al fragment login
+                    findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
                 }
                 .addOnFailureListener { e ->
                     progressDialog.dismiss()

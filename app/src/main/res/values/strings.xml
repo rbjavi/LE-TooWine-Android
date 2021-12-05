@@ -21,8 +21,8 @@
     <string name="onboarding_pag3_description">¡Estate al loro!\n Mantente actualizado con lo último sobre vinos y bodegas. Enriquecerás y puede ser de ayuda en tu elección</string>
 
     <!--  Bottom_Navigation_Menu   -->
-    <string name="text_label_1">Home</string>
-    <string name="text_label_2">Wines</string>
+    <string name="text_label_1">Inicio</string>
+    <string name="text_label_2">Vinos</string>
     <string name="text_label_3">Favs</string>
     <string name="text_label_4">RSS</string>
     <string name="text_label_5">Login</string>
@@ -33,14 +33,11 @@
     <string name="wine_price">Price</string>
     <string name="homewine_item_favorite">favorite icon</string>
     <string name="winehome_item_wineimage">wine image</string>
-    <string name="fragment_favorites">FAVORITOS</string>
-    <string name="wine_collections">Wine Collections</string>
 
-    <!-- nav fragment titles-->
-    <string name="favorite_blank_fragment">favorites fragment</string>
-    <string name="news_blank_fragment">News fragment</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="fragment_wine_collections">Wine Collections</string>
+    <!-- fragment titles-->
+    <string name="favorite_fragment">Vinos Deseados</string>
+    <string name="news_fragment">Actualidad</string>
+    <string name="wine_collections_fragment">Colecciones</string>
 
     <!-- home activity   -->
     <string name="latest_wine_deals">Novedades</string>
@@ -76,19 +73,19 @@
     <string name="profile_logout">logout</string>
     <string name="login_forgot_password">¿Olvidaste la Contraseña?</string>
 
-<!--    Signup xml -->
+    <!--    Signup xml -->
     <string name="sign_up">Regístrate</string>
     <string name="name_hint_text">Nombre</string>
     <string name="signup_confirm_password_hint_text">Confirmar Contraseña</string>
     <string name="signup_caption">crea un usuario único customizable para toowine</string>
     <string name="sign_up_button">Registrarse</string>
-<!--    profile xml -->
+    <!--    profile xml -->
     <string name="provider_email">Provider email</string>
     <string name="profile_caption">Estás logueado como…</string>
     <string name="name_profile">Nombre de usuario</string>
 
 
-<!--   SignupFragment: validation Toast -->
+    <!--   SignupFragment: validation Toast -->
     <string name="name_not_empty">Nombre no debe estar vacío</string>
     <string name="email_not_empty">Email no debe estar vacío</string>
     <string name="pass_not_empty">Contraseña no debe estar vacía</string>
@@ -97,10 +94,14 @@
     <string name="cpass_less_length">Contraseña debe ser mayor a 5 caracteres</string>
     <string name="pasword_not_match">Contraseñas no coinciden</string>
 
-<!--    SignupFragment: Create user account-->
+    <!--    SignupFragment: Create user account-->
     <string name="fail_to_create_account">Error al crear la cuenta debido a</string>
     <string name="failed_saving_user_info">Falló al guardar los datos de usuario a la base de datos</string>
     <string name="successful_saving_user_info">Éxito al guardar en la base de datos</string>
     <string name="fail_to_log_in">Error al iniciar sesión:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="invalid_webscraping">Error al extraer datos del sitio web</string>
+    <string name="must_be_logged_in">Debes estar logueado para añadir a tu lista de deseos</string>
 
 </resources>

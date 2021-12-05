@@ -1,61 +1,62 @@
-package com.jruizb.toowine.fragments
+package com.jruizb.toowine.menunavigation.home
 
-import android.annotation.SuppressLint
+import android.app.ProgressDialog
+import android.content.Context
 import android.media.metrics.Event
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.jruizb.toowine.R
 import com.jruizb.toowine.databinding.FragmentHomeBinding
 import com.jruizb.toowine.databinding.HomewineRecyclerItemsBinding
 import com.jruizb.toowine.domain.WineItems
-import com.jruizb.toowine.home.HomeRecyclerAdapter
-import com.jruizb.toowine.util.Constants.FUN
 import com.jruizb.toowine.util.Constants.NO_PRICE_WINE_RECYCLER
 import com.jruizb.toowine.util.Constants.NO_TYPE_WINE_RECYCLER
+import com.jruizb.toowine.util.CertificateJsoup
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jsoup.Jsoup
-import java.security.KeyManagementException
-import java.security.SecureRandom
-import java.security.cert.CertificateException
-import java.security.cert.X509Certificate
-import javax.net.ssl.SSLContext
-import javax.net.ssl.SSLSocketFactory
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
 
 
 class HomeFragment : Fragment() {
-
-    private lateinit var _recyclerBinding: HomewineRecyclerItemsBinding
-
-    //    private val recyclerBinding get() = _recyclerBinding!!
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private var _recyclerBinding: HomewineRecyclerItemsBinding? = null
+//    private val recyclerViewWines: RecyclerView? = null
+
+    private var firebaseFirestoreInstance: FirebaseFirestore? = null
+    private var dbReference: CollectionReference? = null
+    private var dbFavReference: CollectionReference? = null
+
+    private lateinit var firebaseAuth: FirebaseAuth
+
+    private var activityContext: Context? = null
+
 
     private val wineologoList = ArrayList<WineItems>()
+    private var favButton: ImageButton? = null;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        favButton = _recyclerBinding?.wineStarImageButton
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
-//        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        retrieveWebInfo()
     }
 
     override fun onDestroyView() {
@@ -63,10 +64,46 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    private fun retrieveWebInfo() {
+        //Contexto de la actividad a la que está asociada este fragment
+        activityContext = context
+        //Inicialización de firebase auth
+        firebaseAuth = FirebaseAuth.getInstance()
+        //Inicialización de firestore para poder realizar las opeciaones de lectura o escritura
+        firebaseFirestoreInstance = FirebaseFirestore.getInstance()
+        //Obtiene la referencia de un documento de la db
+        dbReference = firebaseFirestoreInstance!!.collection("client")
+        dbFavReference = firebaseFirestoreInstance!!.collection("favoriteWines")
+        retrieveWineDealsInfoFromWeb()
+
+
+
+//        favoriteSetup()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+      val checkUserLoggedIn:FirebaseUser? = firebaseAuth.currentUser
+        if (checkUserLoggedIn != null) { //If any user is logged in
+            favButton?.setOnClickListener {
+
+            }
+        } else {
+            Toast.makeText(context,requireContext().getString(R.string.must_be_logged_in),Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    //    private fun favoriteSetup() {
+//        TODO("Not yet implemented")
+//    }
+
+
+
+    private fun retrieveWineDealsInfoFromWeb() {
 //        val recyclerV = findViewById<RecyclerView>(R.id.fgHomeDealsWineRecyclerView)
-
         var wineUrl: String
         var wineName: String
         var wineDenominacion: String
@@ -76,9 +113,9 @@ class HomeFragment : Fragment() {
         doAsync {
             val doc = Jsoup.connect(
                 "https://www.drinksco.es/productos:o:ofertas"
-            ).sslSocketFactory(socketFactory()).get()
+            ).sslSocketFactory(CertificateJsoup.socketFactory()).get()
+
             val winitosGrid = doc.getElementsByClass("product-container")
-//            val winitosItems = winitosGrid[0].getElementsByTag("a")
             for (i in winitosGrid) {
                 /*https://www.drinksco.es/productos:o:ofertas" */
                 /* IMAGEN VINO */
@@ -132,49 +169,13 @@ class HomeFragment : Fragment() {
 
     //FIX THIS
     private fun updateEvent(event: Event) {
-        _recyclerBinding.wineStarImageButton.setOnClickListener() {
+        _recyclerBinding?.wineStarImageButton?.setOnClickListener() {
             deleteEvent(event)
         }
     }
     //******
     private fun deleteEvent(event: Event) {
 
-    }
-
-    /**
-     * To suppress certificate warnings for specific JSoup connection
-     */
-    private fun socketFactory(): SSLSocketFactory {
-        Log.v(FUN, "Inside socketFactory")
-        val trustAllCerts = arrayOf<TrustManager>(@SuppressLint("CustomX509TrustManager")
-        object : X509TrustManager {
-            @SuppressLint("TrustAllX509TrustManager")
-            @Throws(CertificateException::class)
-            override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
-            }
-
-            @SuppressLint("TrustAllX509TrustManager")
-            @Throws(CertificateException::class)
-            override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
-            }
-
-            override fun getAcceptedIssuers(): Array<X509Certificate> {
-                return arrayOf()
-            }
-        })
-        Log.v(FUN, "Before sslContext")
-        try {
-            val sslContext = SSLContext.getInstance("TLS")
-            sslContext.init(null, trustAllCerts, SecureRandom())
-            return sslContext.socketFactory
-        } catch (e: Exception) {
-            when (e) {
-                is RuntimeException, is KeyManagementException -> {
-                    throw RuntimeException("Failed to create a SSL socket factory", e)
-                }
-                else -> throw e
-            }
-        }
     }
 }
 

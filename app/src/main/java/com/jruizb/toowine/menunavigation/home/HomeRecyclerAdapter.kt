@@ -1,22 +1,25 @@
-package com.jruizb.toowine.favorites
+package com.jruizb.toowine.menunavigation.home
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.jruizb.toowine.databinding.FavoritewineRecyclerItemsBinding
-import com.jruizb.toowine.domain.FavoriteItems
+import com.jruizb.toowine.databinding.HomewineRecyclerItemsBinding
+import com.jruizb.toowine.domain.WineItems
+import com.jruizb.toowine.preferences.PreferencesKey
+import com.jruizb.toowine.preferences.PreferencesProvider
 
 
 /**
  * TooWine
  *
  * Creado por Javier RB
- * A fecha 20/11/2021
+ * A fecha 16/10/2021
  */
-class FavoritesRecyclerAdapter (val contexto: Context, val favoriteItemsList: ArrayList<FavoriteItems>) :
-RecyclerView.Adapter<FavoritesRecyclerAdapter.RecyclerHolder>() {
+class HomeRecyclerAdapter(val contexto: Context, val wineItemsList: ArrayList<WineItems>) :
+    RecyclerView.Adapter<HomeRecyclerAdapter.RecyclerHolder>() {
+//    private lateinit var binding: HomewineRecyclerItemsBinding
 
     /**
      * Crea un viewholder y su vista asociada, y los inicializa sin llegar a vincular aun el viewholder
@@ -24,7 +27,7 @@ RecyclerView.Adapter<FavoritesRecyclerAdapter.RecyclerHolder>() {
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerHolder {
         return RecyclerHolder(
-            FavoritewineRecyclerItemsBinding.inflate(
+            HomewineRecyclerItemsBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -36,31 +39,34 @@ RecyclerView.Adapter<FavoritesRecyclerAdapter.RecyclerHolder>() {
      * Recupera
      */
     override fun onBindViewHolder(holder: RecyclerHolder, position: Int) {
-        holder.bind(favoriteItemsList[position])
+        holder.bind(wineItemsList[position])
     }
 
     /**
      * Obtiene el tamaño del conjunto de datos
      */
     override fun getItemCount(): Int {
-        return favoriteItemsList.size
+        return wineItemsList.size
     }
 
     //Clase interna con la inicializacion bindeada de los datos que se quieren obtener de un objeto Wine
-    inner class RecyclerHolder(private val itemBinding: FavoritewineRecyclerItemsBinding) :
+    inner class RecyclerHolder(private val itemBinding: HomewineRecyclerItemsBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         /**
          * Recoge los datos inicializados del objeto en cuestion para pasarlos a los elementos correspondientes
          * de la vista
          */
-        fun bind(favsItems: FavoriteItems) = with(itemBinding) {
+        fun bind(wineItems: WineItems) = with(itemBinding) {
 //          itemBinding.apply {  //Se puede tambien llamar a la funcion apply() para aplicar solo una vez la variable que se esta bindeando
-            favsName.text = favsItems.wineNameFavs
+            wineName.text = wineItems.name
+            wineDenominacion.text = wineItems.originCertificate
+            wineCurrentPrice.text = wineItems.currentPrice
+            wineOriginalPrice.text = wineItems.originalPrice
 
             Glide.with(contexto)
-                .load(favoriteItemsList[adapterPosition].wineImageFavs)
-                .override(200,200) //
-                .into(itemBinding.favsImage)
+                .load(wineItemsList[adapterPosition].imageViewUrl)
+                .override(600,600) //
+                .into(itemBinding.wineImageView)
 //            Glide.with(contexto)
 //                .load(wineItemsList[adapterPosition].imageUrl)
 //                .transform(CircleCrop())

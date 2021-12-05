@@ -12,7 +12,7 @@ import android.widget.ImageView
 data class WineItems(
     var imageViewUrl: String,
     val name: String,
-    val denominacion: String,
+    val originCertificate: String,
     val currentPrice: String,
     val originalPrice: String
 )

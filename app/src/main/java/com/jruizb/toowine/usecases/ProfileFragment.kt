@@ -12,7 +12,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jruizb.toowine.databinding.FragmentProfileBinding
-import com.jruizb.toowine.home.HomeActivity
+import com.jruizb.toowine.main.HomeActivity
+import com.jruizb.toowine.preferences.PreferencesKey
+import com.jruizb.toowine.preferences.PreferencesProvider
 
 
 /**
@@ -25,7 +27,8 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var firebaseFirestoreInstance: FirebaseFirestore? = null
-    private var dbReference: CollectionReference? = null
+    private var dbUserReference: CollectionReference? = null
+
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var progressDialog: ProgressDialog
 
@@ -52,7 +55,7 @@ class ProfileFragment : Fragment() {
         //Inicialización de firestore para poder realizar las opeciaones de lectura o escritura
         firebaseFirestoreInstance = FirebaseFirestore.getInstance()
         //Obtiene la referencia de un documento de la db
-        dbReference = firebaseFirestoreInstance!!.collection("client")
+        dbUserReference = firebaseFirestoreInstance!!.collection("client")
 
         //Inicialización de progressDialog
         if (context!=null) {
@@ -67,16 +70,25 @@ class ProfileFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+//        if (isUserLoggedIn(requireContext())) {
+            _binding = null
+//        }
+    }
+
+    private fun isUserLoggedIn(context: Context): Boolean {
+        return !(PreferencesProvider.getBool(context, PreferencesKey.IS_LOGGED_IN) ?: false)
     }
 
     private fun getInfoFromCurrentProfile() {
         val user = firebaseAuth.currentUser
-        user?.let {
-            with(binding){
-                nameProfile.text = user.displayName
-                emailProfile.text = user.email
-                val photoUrl = user.photoUrl
+        if (user != null) {
+            binding.logoutProfileButton.visibility = View.VISIBLE
+            user?.let {
+                with(binding) {
+                    nameProfile.text = user.displayName
+                    emailProfile.text = user.email
+//                val photoUrl = user.photoUrl
+                }
             }
         }
     }
@@ -86,7 +98,7 @@ class ProfileFragment : Fragment() {
             progressDialog.setMessage("deslogueándose...")
             progressDialog.show()
             firebaseAuth.signOut()
-            startActivity(Intent(requireActivity(),HomeActivity::class.java))
+            startActivity(Intent(requireActivity(), HomeActivity::class.java))
         }
         progressDialog.dismiss()
     }

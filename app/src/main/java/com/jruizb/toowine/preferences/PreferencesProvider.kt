@@ -14,7 +14,10 @@ import androidx.preference.PreferenceManager
 enum class PreferencesKey(val value: String) {
     ONBOARDING("onboarding"),
     IS_LOGGED_IN("logged_in"),
-    USER_NAME("username")
+    USER_NAME("username"),
+    EMAIL("email"),
+    PASSWORD("password"),
+    FIRST_START("firstFav")
 
 }
 
@@ -31,24 +34,7 @@ object PreferencesProvider {
         editor.putBoolean(key.value, value).apply()
     }
 
-     fun saveState(context: Context, isFavourite: Boolean) {
-        val aSharedPreferences: SharedPreferences = this.prefs(
-            context
-        )
-        val aSharedPreferencesEdit = aSharedPreferences
-            .edit()
-        aSharedPreferencesEdit.putBoolean("State", isFavourite)
-        aSharedPreferencesEdit.apply()
-    }
-
-     fun readState(context: Context,): Boolean {
-        val aSharedPreferenes: SharedPreferences = this.prefs(
-            context
-        )
-        return aSharedPreferenes.getBoolean("State", true)
-    }
-
-    fun bool(context: Context, key: PreferencesKey): Boolean? {
+    fun getBool(context: Context, key: PreferencesKey): Boolean? {
         return prefs(context).getBoolean(key.value, false)
     }
 
@@ -56,7 +42,27 @@ object PreferencesProvider {
         return prefs(context).getString(key.value, "")
     }
 
+    //     fun saveState(context: Context, isFavourite: Boolean) {
+//        val aSharedPreferences: SharedPreferences = this.prefs(
+//            context
+//        )
+//        val aSharedPreferencesEdit = aSharedPreferences
+//            .edit()
+//        aSharedPreferencesEdit.putBoolean("State", isFavourite)
+//        aSharedPreferencesEdit.apply()
+//    }
+//
+//     fun readState(context: Context,): Boolean {
+//        val aSharedPreferenes: SharedPreferences = this.prefs(
+//            context
+//        )
+//        return aSharedPreferenes.getBoolean("State", true)
+//    }
 
+    /**
+     * Obtiene una instancia SharedPreferences que apunta al archivo por defecto que es usado
+     * por el framework preference en el contexto dado el cual nos permitirá acceder y modificar datos
+     */
     private fun prefs(context: Context): SharedPreferences {
         return PreferenceManager.getDefaultSharedPreferences(context)
     }

@@ -15,7 +15,7 @@ class OnboardingData {
     companion object{
        var onboardingItemsAdapter = arrayListOf(
            OnboardingItems(
-               R.drawable.onboarding_cheers_ext,
+               R.drawable.onboarding_cheers,
                R.string.onboarding_pag0_title,
                R.string.onboarding_pag0_description
            ),
@@ -25,7 +25,7 @@ class OnboardingData {
                R.string.onboarding_pag1_description
            ),
            OnboardingItems(
-               R.drawable.onboarding_onlystar_80_1_10,
+               R.drawable.onboarding_faves_star,
                R.string.onboarding_pag2_title,
                R.string.onboarding_pag2_description
            ),

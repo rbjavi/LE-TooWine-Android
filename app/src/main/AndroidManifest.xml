@@ -13,17 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TooWine">
         <activity
-            android:name=".launch.LaunchActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".usecases.DashBoard"
+            android:exported="false" />
         <activity
             android:name=".onboarding.Onboarding"
             android:exported="true"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".home.HomeActivity"
+            android:name=".main.HomeActivity"
+            android:theme="@style/Theme.splashScreenTheme"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
