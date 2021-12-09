@@ -27,13 +27,6 @@
     <string name="text_label_4">RSS</string>
     <string name="text_label_5">Login</string>
 
-    <!--  HomeWine_Recycler_Items   -->
-    <string name="wine_name">Name</string>
-    <string name="wine_type">Type</string>
-    <string name="wine_price">Price</string>
-    <string name="homewine_item_favorite">favorite icon</string>
-    <string name="winehome_item_wineimage">wine image</string>
-
     <!-- fragment titles-->
     <string name="favorite_fragment">Vinos Deseados</string>
     <string name="news_fragment">Actualidad</string>
@@ -44,11 +37,11 @@
     <string name="hometitle_label_deals">Novedades Diarias</string>
 
     <!-- homewine_recycler_items    -->
-    <string name="nombre_vino">nombre vino</string>
-    <string name="tipo_vino">tipo</string>
-    <string name="precio_vino">precio</string>
+    <string name="wine_name">Nombre</string>
+    <string name="wine_type">Denominación</string>
+    <string name="wine_price">Precio</string>
     <string name="wine_image">Imagen de vino</string>
-    <string name="precio_original_vino">precio original</string>
+    <string name="origin_wine_price">Precio original</string>
     <string name="purchase_wine">comprar</string>
     <string name="onboarding_images">Onboarding Images Content</string>
 
@@ -103,5 +96,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="invalid_webscraping">Error al extraer datos del sitio web</string>
     <string name="must_be_logged_in">Debes estar logueado para añadir a tu lista de deseos</string>
+    <string name="forgot_password">Recuperación Contraseña</string>
+    <string name="continue_forgot_password">Continuar</string>
+    <string name="email_sent">Link de recuperación fue enviado al email proporcionado</string>
+    <string name="fail_to_send_recovery_email">Falló al enviar su link de recuperación de contraseña</string>
+
 
 </resources>
