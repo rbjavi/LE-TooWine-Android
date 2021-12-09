@@ -63,8 +63,13 @@ class SignupFragment : Fragment() {
             progressDialog.setCanceledOnTouchOutside(false)
         }
 
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
         binding.registerMaterialButton.setOnClickListener {
-//            Log.i("CL","ENTRANDO POR EL EVENTO CLICK LISTENER")
             validateData()
         }
     }

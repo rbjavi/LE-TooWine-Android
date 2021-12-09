@@ -18,6 +18,8 @@ import com.jruizb.toowine.databinding.FragmentWineCollectionsBinding
 
 class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
+    // Esta propiedad es sólo válida entre onCreateView y
+    // onDestroyView.
     private val binding get() = _binding!!
 
     private var activityContext: Context? = null

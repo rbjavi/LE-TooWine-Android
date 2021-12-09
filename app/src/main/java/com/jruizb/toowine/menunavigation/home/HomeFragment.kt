@@ -55,8 +55,6 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
-
-
     }
 
     override fun onDestroyView() {
@@ -71,34 +69,30 @@ class HomeFragment : Fragment() {
         activityContext = context
         //Inicialización de firebase auth
         firebaseAuth = FirebaseAuth.getInstance()
-        //Inicialización de firestore para poder realizar las opeciaones de lectura o escritura
+        //Inicialización de firestore para poder realizar las operaciones de lectura o escritura
         firebaseFirestoreInstance = FirebaseFirestore.getInstance()
         //Obtiene la referencia de un documento de la db
         dbReference = firebaseFirestoreInstance!!.collection("client")
         dbFavReference = firebaseFirestoreInstance!!.collection("favoriteWines")
+
         retrieveWineDealsInfoFromWeb()
-
-
-
 //        favoriteSetup()
+
+        addToWishList()
     }
 
-    override fun onStart() {
-        super.onStart()
 
-      val checkUserLoggedIn:FirebaseUser? = firebaseAuth.currentUser
-        if (checkUserLoggedIn != null) { //If any user is logged in
-            favButton?.setOnClickListener {
-
+    private fun addToWishList() {
+        favButton?.setOnClickListener {
+            val checkUserLoggedIn:FirebaseUser? = firebaseAuth.currentUser
+            if (checkUserLoggedIn != null) { //If any user is logged in
+                Toast.makeText(context,requireContext().getString(R.string.must_be_logged_in),Toast.LENGTH_SHORT).show()
             }
-        } else {
-            Toast.makeText(context,requireContext().getString(R.string.must_be_logged_in),Toast.LENGTH_SHORT).show()
+            else {
+                Toast.makeText(context,requireContext().getString(R.string.login_welcome),Toast.LENGTH_SHORT).show()
+            }
         }
     }
-
-    //    private fun favoriteSetup() {
-//        TODO("Not yet implemented")
-//    }
 
 
 

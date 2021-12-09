@@ -18,12 +18,6 @@ import com.jruizb.toowine.databinding.FragmentLoginBinding
 import com.jruizb.toowine.main.HomeActivity
 import com.jruizb.toowine.preferences.PreferencesKey
 import com.jruizb.toowine.preferences.PreferencesProvider
-import com.jruizb.toowine.usecases.DashBoard
-import com.google.firebase.auth.UserProfileChangeRequest
-
-
-
-
 
 
 class LoginFragment : Fragment(){
@@ -74,6 +68,10 @@ class LoginFragment : Fragment(){
         // se le pasa el contexto de este fragment
 //        val action = view.findViewById<View>(R.id.signUpLoginTV)
 //            action.setOnClickListener(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
         //Necesario para pasar al otro fragment a que se quiere navegar
         binding.signUpLoginTV.setOnClickListener{
             findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
@@ -83,13 +81,12 @@ class LoginFragment : Fragment(){
         binding.loginMaterialButton.setOnClickListener {
             validateData()
         }
-
     }
 
-    override fun onResume() {
-        super.onResume()
-        runnable?.run()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        runnable?.run()
+//    }
 
 
     override fun onDestroyView() {
@@ -152,16 +149,16 @@ class LoginFragment : Fragment(){
         //Loguearse en Firebase Auth
         firebaseAuth.signInWithEmailAndPassword(emailLogin, passwordLogin)
             .addOnSuccessListener {
-                context?.let { it1 ->
+
                     progressDialog.dismiss()
     //                replaceFromFragmentToFragment(ProfileFragment())
-                    PreferencesProvider.set(it1,PreferencesKey.EMAIL, emailLogin)
-                    PreferencesProvider.set(it1,PreferencesKey.IS_LOGGED_IN,true)
-                    val profileUpdates =
-                        UserProfileChangeRequest.Builder().setDisplayName("John Smith").build()
+                    PreferencesProvider.set(requireActivity(),PreferencesKey.EMAIL, emailLogin)
+                    PreferencesProvider.set(requireActivity(),PreferencesKey.IS_LOGGED_IN,true)
+//                    val profileUpdates =
+//                        UserProfileChangeRequest.Builder().setDisplayName("John Smith").build()
+//
+//                    user?.updateProfile(profileUpdates)
 
-                    user?.updateProfile(profileUpdates)
-                }
                 Toast.makeText(context,requireActivity().getString(R.string.login_welcome),Toast.LENGTH_LONG).show()
 
                 //Navega mediante una acción definida en el navigation graph hacia profile fragment
@@ -175,9 +172,6 @@ class LoginFragment : Fragment(){
             }
     }
 
-    private fun navToDashBoard() {
-        startActivity(Intent(requireContext(),DashBoard::class.java))
-    }
 
 
    private fun replaceFromFragmentToFragment(fragment: Fragment) {

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable-v24/shape_edittext.xml" value="0.13148148148148148" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable-v24/shape_edittext2.xml" value="0.14814814814814814" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable-v24/shape_edittext3.xml" value="0.14814814814814814" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/background_searcher_fragment.xml" value="0.11990740740740741" />
@@ -16,7 +17,10 @@
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.23657407407407408" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.15046296296296297" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_baseline_star_border_24.xml" value="0.15046296296296297" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_baseline_star_outline_24.xml" value="0.24027777777777778" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_branding_logo.xml" value="0.24027777777777778" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_colored_star.xml" value="0.15046296296296297" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_fav_selected_star_24.xml" value="0.24027777777777778" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.13148148148148148" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_logotoow_transparency.xml" value="0.13148148148148148" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_logotoowine_transparency.xml" value="0.13148148148148148" />
@@ -30,6 +34,7 @@
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/icon_outer_background.xml" value="0.2703125" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/indicators_active_background.xml" value="0.1300925925925926" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/indicators_inactive_background.xml" value="0.1300925925925926" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/logo_text.xml" value="0.24027777777777778" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/splash_image.xml" value="0.13148148148148148" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/splashscreen.xml" value="0.11851851851851852" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/state_navigationbar_color.xml" value="0.24027777777777778" />
@@ -40,7 +45,7 @@
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/activity_launch.xml" value="0.264" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/activity_onboarding.xml" value="0.2" />
-        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/favoritewine_recycler_items.xml" value="0.264" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/favoritewine_recycler_items.xml" value="0.4" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_blank.xml" value="0.22592592592592592" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_fav.xml" value="0.11574074074074074" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_favorites.xml" value="0.16799999999999998" />
@@ -52,11 +57,12 @@
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_signup.xml" value="0.176" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_wine_collection.xml" value="0.11574074074074074" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_wine_collections.xml" value="0.4" />
-        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/homewine_recycler_items.xml" value="0.536" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/homewine_recycler_items.xml" value="0.22592592592592592" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/nav_graph.xml" value="0.11574074074074074" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/news_recycler_items.xml" value="0.264" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/newsfeeds_recycler_items.xml" value="0.2" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/onboarding_item_container.xml" value="0.2" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/progress_bar.xml" value="0.10231481481481482" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/searcher_fragment.xml" value="0.10555555555555556" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/winecollection_fg_recycler_items.xml" value="0.22592592592592592" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.22592592592592592" />

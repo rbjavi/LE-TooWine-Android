@@ -17,13 +17,10 @@ import com.jruizb.toowine.preferences.PreferencesKey
 import com.jruizb.toowine.preferences.PreferencesProvider
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
+    // Esta propiedad es sólo válida entre onCreateView y
+    // onDestroyView.
     private val binding get() = _binding!!
 
     private var firebaseFirestoreInstance: FirebaseFirestore? = null
@@ -40,6 +37,7 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
@@ -47,6 +45,8 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //Botón logout a invisible inicialmente mientras no haya un usuario logueado
+        binding.logoutProfileButton.visibility = View.INVISIBLE
 
         //Contexto de la actividad a la que está asociada este fragment
         activityContext = context
@@ -63,6 +63,11 @@ class ProfileFragment : Fragment() {
             progressDialog.setTitle("Cargando...")
             progressDialog.setCanceledOnTouchOutside(false)
         }
+
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         getInfoFromCurrentProfile()
         profileLogout()
@@ -82,6 +87,7 @@ class ProfileFragment : Fragment() {
     private fun getInfoFromCurrentProfile() {
         val user = firebaseAuth.currentUser
         if (user != null) {
+            //Si hay
             binding.logoutProfileButton.visibility = View.VISIBLE
             user?.let {
                 with(binding) {

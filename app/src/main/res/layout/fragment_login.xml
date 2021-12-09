@@ -24,9 +24,10 @@
         android:id="@+id/titleLoginCaption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:padding="10dp"
         android:text="@string/login_caption"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@id/titleLabelLogin"
         app:layout_constraintStart_toStartOf="parent"
         style="@style/TextAppearance.MaterialComponents.Caption"/>
@@ -41,7 +42,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleLoginCaption" >
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailETLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,12 +63,12 @@
         app:layout_constraintStart_toStartOf="@+id/emailTilLogin"
         app:layout_constraintTop_toBottomOf="@id/emailTilLogin">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordETLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password_hint_text"
-            android:background="@drawable/shape_edittext3"
+            android:background="@drawable/shape_edittext"
             android:drawableStart="@drawable/ic_baseline_lock_24"
             android:drawablePadding="10dp"
             android:paddingTop="25dp"

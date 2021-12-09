@@ -17,7 +17,6 @@ import com.jruizb.toowine.preferences.PreferencesProvider
 
 class Onboarding : AppCompatActivity() {
     private lateinit var binding: ActivityOnboardingBinding
-
     private var currentPositionPager: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {

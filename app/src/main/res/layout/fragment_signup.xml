@@ -42,7 +42,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleCaptionSignup">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nameTil">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
         app:layout_constraintStart_toStartOf="@+id/emailTil"
         app:layout_constraintTop_toBottomOf="@id/emailTil">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -113,13 +113,13 @@
         app:layout_constraintStart_toStartOf="@+id/passwordTil"
         app:layout_constraintTop_toBottomOf="@id/passwordTil">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/confirmPasswordET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:hint="@string/signup_confirm_password_hint_text"
-            android:background="@drawable/shape_edittext3"
+            android:background="@drawable/shape_edittext"
             android:drawableStart="@drawable/ic_baseline_lock_24"
             android:drawablePadding="10dp"
             android:paddingTop="20dp"

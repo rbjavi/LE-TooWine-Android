@@ -44,7 +44,6 @@
         android:layout_gravity="center"
         android:textAlignment="center"
         android:backgroundTint="@color/orange_700"
-        android:text="@string/profile_logout"
-        android:visibility="invisible"/>
+        android:text="@string/profile_logout"/>
 
 </LinearLayout>

@@ -1,11 +1,20 @@
 package com.jruizb.toowine.main
 
+import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.view.ViewTreeObserver
+import android.widget.ProgressBar
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,17 +30,29 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var  bindingHome: ActivityHomeBinding
 
-//    private lateinit var bindingLoginFragment: FragmentLoginBinding
-private var runnable: Runnable? = null
+    private lateinit var progressDialog: ProgressDialog
+    private var isMainScreenLoaded: Boolean = true
+
+    private val viewModel: HomeViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         installSplashScreen()
+        setupOnboarding()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        loadAppView()
+    }
+
+    private fun loadAppView () {
+        if (isMainScreenLoaded)
 
         bindingHome = inflate(layoutInflater)
         setContentView(bindingHome.root)
-        setupOnboarding()
 
         /* Configuración del controlador de bottomNavigationBar y UI ActionBar label */
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigatin_view)
@@ -43,14 +64,7 @@ private var runnable: Runnable? = null
         //Configura la navegación entre fragments para concocer cuando un elemento del menú está seleccionado
         //El elemento seleccionado en el NavigationView se actualizará cuando el destino cambie
         bottomNavigationView.setupWithNavController(navController)
-
     }
-
-
-
-
-
-
 
     /**
      *  Función que valida si onboarding ya ha sido inicializada por primera vez, si obtiene false
@@ -78,13 +92,4 @@ private var runnable: Runnable? = null
         transaction.replace(R.id.fragmentContainer, fragment)
         transaction.commit()
     }
-//    private fun navigateToSignup() {
-//        bindingLoginFragment.signUpLoginTV.setOnClickListener {
-//            val signupF =
-//                val fragment =
-//                    supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
-//
-//        }
-//    }
-
 }

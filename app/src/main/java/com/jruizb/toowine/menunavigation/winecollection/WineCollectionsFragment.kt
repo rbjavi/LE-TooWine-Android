@@ -12,6 +12,8 @@ import com.jruizb.toowine.databinding.FragmentWineCollectionsBinding
 
 class WineCollectionsFragment : Fragment() {
     private var _binding: FragmentWineCollectionsBinding? = null
+    // Esta propiedad es sólo válida entre onCreateView y
+    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(

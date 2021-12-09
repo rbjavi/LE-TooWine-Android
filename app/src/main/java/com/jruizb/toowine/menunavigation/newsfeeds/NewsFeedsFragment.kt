@@ -23,6 +23,8 @@ private const val TAG = "MyActivity"
 
 class NewsFeedsFragment : Fragment() {
     private var _binding: FragmentNewsFeedsBinding? = null
+    // Esta propiedad es sólo válida entre onCreateView y
+    // onDestroyView.
     private val binding get() = _binding!!
 
     private val newsFeedsList = ArrayList<NewsItems>()

@@ -3,12 +3,19 @@ package com.jruizb.toowine.menunavigation.home
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.jruizb.toowine.R
 import com.jruizb.toowine.databinding.HomewineRecyclerItemsBinding
 import com.jruizb.toowine.domain.WineItems
 import com.jruizb.toowine.preferences.PreferencesKey
 import com.jruizb.toowine.preferences.PreferencesProvider
+import org.jetbrains.anko.backgroundResource
 
 
 /**
@@ -17,10 +24,16 @@ import com.jruizb.toowine.preferences.PreferencesProvider
  * Creado por Javier RB
  * A fecha 16/10/2021
  */
-class HomeRecyclerAdapter(val contexto: Context, val wineItemsList: ArrayList<WineItems>) :
+class HomeRecyclerAdapter(private val contexto: Context,private val wineItemsList: ArrayList<WineItems>) :
     RecyclerView.Adapter<HomeRecyclerAdapter.RecyclerHolder>() {
-//    private lateinit var binding: HomewineRecyclerItemsBinding
+    private var binding: HomewineRecyclerItemsBinding? = null
+    private var isFavSelected: Boolean = false
 
+    private var firebaseFirestoreInstance: FirebaseFirestore? = null
+    private var dbReference: CollectionReference? = null
+    private var dbFavReference: CollectionReference? = null
+
+    private lateinit var firebaseAuth: FirebaseAuth
     /**
      * Crea un viewholder y su vista asociada, y los inicializa sin llegar a vincular aun el viewholder
      * con los datos en especifico
@@ -39,7 +52,22 @@ class HomeRecyclerAdapter(val contexto: Context, val wineItemsList: ArrayList<Wi
      * Recupera
      */
     override fun onBindViewHolder(holder: RecyclerHolder, position: Int) {
+
         holder.bind(wineItemsList[position])
+        holder.itemView.findViewById<ImageButton>(R.id.wineStarImageButton).setOnClickListener {
+            if (!holder.itemView.findViewById<ImageButton>(R.id.wineStarImageButton).isSelected) {
+                holder.itemView.findViewById<ImageButton>(R.id.wineStarImageButton)
+                Toast.makeText(
+                    contexto, "Pulsado elemento: "
+                            + wineItemsList[position].name + "\nPosición: "
+                            + position, Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                holder.itemView.findViewById<ImageButton>(R.id.wineStarImageButton)
+                    .setImageResource(R.drawable.ic_fav_unselected_star_24)
+            }
+        }
+
     }
 
     /**
@@ -72,6 +100,20 @@ class HomeRecyclerAdapter(val contexto: Context, val wineItemsList: ArrayList<Wi
 //                .transform(CircleCrop())
 //                .into(itemBinding.wineImage)
 //          }
+
+
+//
+//            itemBinding.wineStarImageButton.setOnClickListener {
+//                val position = adapterPosition
+//                    val wineItem = wineItemsList[position]
+//                if (!wineItem.favStatus) {
+//                    wineItem.favStatus
+//                    itemBinding.wineStarImageButton.setBackgroundResource(R.drawable.ic_fav_selected_star_24)
+//                } else {
+//                    wineItem.favStatus = false
+//                    itemBinding.wineStarImageButton.setBackgroundResource(R.drawable.ic_fav_unselected_star_24)
+//                }
+//            }
         }
     }
 }

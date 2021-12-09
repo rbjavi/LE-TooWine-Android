@@ -15,7 +15,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="200dp"
-        android:layout_height="400dp">
+        android:layout_height="425dp">
 
         <ImageView
             android:id="@+id/wineImageView"
@@ -34,16 +34,13 @@
 
         <ImageButton
             android:id="@+id/wineStarImageButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@color/transparent"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
+            android:background="@drawable/ic_fav_unselected_star_24"
             app:layout_constraintEnd_toEndOf="@+id/wineImageView"
             app:layout_constraintTop_toTopOf="@+id/wineImageView"
-            app:srcCompat="@drawable/ic_fav_unselected_star_24"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
