@@ -4,21 +4,25 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jruizb.toowine.databinding.FragmentProfileBinding
 import com.jruizb.toowine.main.HomeActivity
 import com.jruizb.toowine.preferences.PreferencesKey
 import com.jruizb.toowine.preferences.PreferencesProvider
+import kotlin.concurrent.timerTask
 
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
+
     // Esta propiedad es sólo válida entre onCreateView y
     // onDestroyView.
     private val binding get() = _binding!!
@@ -52,22 +56,24 @@ class ProfileFragment : Fragment() {
         activityContext = context
         //Inicialización de firebase auth
         firebaseAuth = FirebaseAuth.getInstance()
-        //Inicialización de firestore para poder realizar las opeciaones de lectura o escritura
+        //Inicialización de firestore para poder realizar las operaciones de lectura o escritura
         firebaseFirestoreInstance = FirebaseFirestore.getInstance()
         //Obtiene la referencia de un documento de la db
         dbUserReference = firebaseFirestoreInstance!!.collection("client")
 
         //Inicialización de progressDialog
-        if (context!=null) {
+        if (context != null) {
             progressDialog = ProgressDialog(context)
             progressDialog.setTitle("Cargando...")
             progressDialog.setCanceledOnTouchOutside(false)
         }
+        isUserLoggedIn(requireContext())
 
     }
 
     override fun onStart() {
         super.onStart()
+
 
         getInfoFromCurrentProfile()
         profileLogout()
@@ -75,9 +81,8 @@ class ProfileFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-//        if (isUserLoggedIn(requireContext())) {
-            _binding = null
-//        }
+        _binding = null
+
     }
 
     private fun isUserLoggedIn(context: Context): Boolean {
@@ -85,16 +90,24 @@ class ProfileFragment : Fragment() {
     }
 
     private fun getInfoFromCurrentProfile() {
+        val userId = firebaseAuth.currentUser?.uid
         val user = firebaseAuth.currentUser
-        if (user != null) {
-            //Si hay
-            binding.logoutProfileButton.visibility = View.VISIBLE
-            user?.let {
-                with(binding) {
-                    nameProfile.text = user.displayName
-                    emailProfile.text = user.email
-//                val photoUrl = user.photoUrl
-                }
+        var name: String
+
+        user?.let {
+            with(binding) {
+                dbUserReference?.whereEqualTo("uid", userId)
+                    ?.get()?.addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            for (docSnap: DocumentSnapshot in it.result!!) {
+                                name = docSnap.get("name").toString()
+                                nameProfile.text = name
+                                emailProfile.text = user.email
+                            }
+                        }
+                    }
+                //Si hay usuario logueado
+                binding.logoutProfileButton.visibility = View.VISIBLE
             }
         }
     }

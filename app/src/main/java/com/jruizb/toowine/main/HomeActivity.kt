@@ -30,11 +30,6 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var  bindingHome: ActivityHomeBinding
 
-    private lateinit var progressDialog: ProgressDialog
-    private var isMainScreenLoaded: Boolean = true
-
-    private val viewModel: HomeViewModel by viewModels()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +44,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun loadAppView () {
-        if (isMainScreenLoaded)
-
         bindingHome = inflate(layoutInflater)
         setContentView(bindingHome.root)
 

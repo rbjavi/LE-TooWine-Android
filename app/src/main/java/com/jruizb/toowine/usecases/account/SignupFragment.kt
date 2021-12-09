@@ -79,17 +79,11 @@ class SignupFragment : Fragment() {
         _binding = null
     }
 
-    companion object {
-        fun newInstance(): SignupFragment {
-            return SignupFragment()
-        }
-    }
 
     /**
      * Función para validar los datos del registro de usuario
      */
     private fun validateData() {
-        var userList = mutableListOf<String>()
 
         name = binding.nameET.text.toString().trim()
         email = binding.emailET.text.toString().trim()
@@ -133,6 +127,7 @@ class SignupFragment : Fragment() {
         firebaseAuth.createUserWithEmailAndPassword(email, pass)
             .addOnSuccessListener {
                 updateUserInfo()
+
             }
             .addOnFailureListener { e ->
                 progressDialog.dismiss()

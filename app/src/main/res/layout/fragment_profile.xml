@@ -21,7 +21,6 @@
         android:id="@+id/nameProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/name_profile"
         android:textAlignment="center"
         style="@style/TextAppearance.MaterialComponents.Headline4"/>
 
@@ -30,7 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="@string/email_hint_text"
         android:textAlignment="center"
         style="@style/TextAppearance.MaterialComponents.Headline5"/>
 

@@ -31,10 +31,11 @@ class LoginFragment : Fragment(){
     private var activityContext: Context? = null
     private var home: HomeActivity? = null
 
+
+
     private var emailLogin = ""
     private var passwordLogin = ""
 
-    private var runnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,22 +65,28 @@ class LoginFragment : Fragment(){
             progressDialog.setTitle("Cargando...")
             progressDialog.setCanceledOnTouchOutside(false)
         }
-        //obtiene la vista del botón para ir al fragment de registrarse y al clicar
-        // se le pasa el contexto de este fragment
-//        val action = view.findViewById<View>(R.id.signUpLoginTV)
-//            action.setOnClickListener(this)
+
     }
 
     override fun onStart() {
         super.onStart()
-        //Necesario para pasar al otro fragment a que se quiere navegar
-        binding.signUpLoginTV.setOnClickListener{
-            findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
-//            replaceFromFragmentToFragment(SignupFragment())
-        }
 
         binding.loginMaterialButton.setOnClickListener {
             validateData()
+        }
+
+        //Necesario para pasar al otro fragment a que se quiere navegar
+        binding.signUpButtonLogin.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
+        }
+
+        binding.forgotPasswordLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_forgotPassword)
+        }
+
+        if(firebaseAuth.currentUser != null) {
+            binding.profileButtonLogin.visibility = View.VISIBLE
+            navToProfileFragment()
         }
     }
 
@@ -93,13 +100,6 @@ class LoginFragment : Fragment(){
         super.onDestroyView()
         _binding = null
     }
-
-//    companion object {
-//        fun newInstance():LoginFragment {
-//            return LoginFragment()
-//        }
-//    }
-
 
 
     /**
@@ -142,22 +142,13 @@ class LoginFragment : Fragment(){
     }
 
     private fun loginUser() {
-        val user = firebaseAuth.currentUser
-
         progressDialog.setMessage("logueándose...")
         progressDialog.show()
         //Loguearse en Firebase Auth
         firebaseAuth.signInWithEmailAndPassword(emailLogin, passwordLogin)
             .addOnSuccessListener {
-
                     progressDialog.dismiss()
-    //                replaceFromFragmentToFragment(ProfileFragment())
-                    PreferencesProvider.set(requireActivity(),PreferencesKey.EMAIL, emailLogin)
                     PreferencesProvider.set(requireActivity(),PreferencesKey.IS_LOGGED_IN,true)
-//                    val profileUpdates =
-//                        UserProfileChangeRequest.Builder().setDisplayName("John Smith").build()
-//
-//                    user?.updateProfile(profileUpdates)
 
                 Toast.makeText(context,requireActivity().getString(R.string.login_welcome),Toast.LENGTH_LONG).show()
 
@@ -170,6 +161,10 @@ class LoginFragment : Fragment(){
                 Toast.makeText(context,requireActivity().getString(R.string.fail_to_log_in)
                         +" "+e.localizedMessage,Toast.LENGTH_LONG).show()
             }
+    }
+
+    private fun navToProfileFragment() {
+        findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
     }
 
 

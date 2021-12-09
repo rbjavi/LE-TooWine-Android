@@ -77,7 +77,7 @@
 
     <!--    Forgot password -->
     <TextView
-        android:id="@+id/forgotPassword"
+        android:id="@+id/forgotPasswordLogin"
         style="@style/TextAppearance.MaterialComponents.Caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -99,9 +99,25 @@
         app:layout_constraintStart_toStartOf="@id/passwordTilLogin"
         app:layout_constraintTop_toBottomOf="@id/passwordTilLogin" />
 
+    <!--    to profile fragment -->
+    <ImageButton
+        android:id="@+id/profileButtonLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="192dp"
+        android:layout_marginEnd="192dp"
+        android:src="@drawable/ic_baseline_person_24"
+        android:backgroundTint="@color/cyan_blue_600"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/signUpButtonLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginMaterialButton"
+        app:layout_constraintVertical_bias="0.946" />
+
     <!--   if sign up account -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/signUpLoginTV"
+        android:id="@+id/signUpButtonLogin"
         style="@style/TextAppearance.MaterialComponents.Caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -112,4 +128,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loginMaterialButton"
         app:layout_constraintVertical_bias="0.96" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
