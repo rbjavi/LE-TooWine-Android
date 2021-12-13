@@ -32,7 +32,7 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_profileFragment"
-            app:destination="@id/navigation" />
+            app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
@@ -49,7 +49,6 @@
             android:id="@+id/action_signupFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/forgotPassword"
         android:name="com.jruizb.toowine.usecases.account.ForgotPassword"
@@ -59,19 +58,15 @@
             android:id="@+id/action_forgotPassword_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
-    <navigation android:id="@+id/navigation"
-        app:startDestination="@id/profileFragment">
-        <fragment
-            android:id="@+id/profileFragment"
-            android:name="com.jruizb.toowine.usecases.ProfileFragment"
-            android:label="fragment_profile"
-            tools:layout="@layout/fragment_profile">
-            <action
-                android:id="@+id/action_profileFragment_to_loginFragment"
-                app:destination="@id/loginFragment"
-                app:popUpTo="@+id/nav_graph"
-                app:popUpToInclusive="true" />
-        </fragment>
-
-    </navigation>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.jruizb.toowine.usecases.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

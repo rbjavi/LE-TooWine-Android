@@ -83,35 +83,16 @@ class LoginFragment : Fragment(){
         binding.forgotPasswordLogin.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_forgotPassword)
         }
-
+        //Si hay un usuario logueado, se carga el fragmento profile
         if(firebaseAuth.currentUser != null) {
-            binding.profileButtonLogin.visibility = View.VISIBLE
             navToProfileFragment()
         }
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        runnable?.run()
-//    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
-    /**
-     * Función que al clicar sobre el evento del botón <si no tienes una cuenta, regístrate>
-     * navega desde el fragment de Login hasta el fragment de Registrarse mediante una acción
-     * establecida en en nav_graph hacia un destination
-     */
-//    override fun onClick(view: View?) {
-//        if (view != null){
-//            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_signupFragment)
-//        }
-//    }
 
 
     private fun validateData() {
@@ -147,8 +128,8 @@ class LoginFragment : Fragment(){
         //Loguearse en Firebase Auth
         firebaseAuth.signInWithEmailAndPassword(emailLogin, passwordLogin)
             .addOnSuccessListener {
-                    progressDialog.dismiss()
-                    PreferencesProvider.set(requireActivity(),PreferencesKey.IS_LOGGED_IN,true)
+                progressDialog.dismiss()
+                PreferencesProvider.set(requireActivity(),PreferencesKey.IS_LOGGED_IN,true)
 
                 Toast.makeText(context,requireActivity().getString(R.string.login_welcome),Toast.LENGTH_LONG).show()
 
@@ -166,22 +147,5 @@ class LoginFragment : Fragment(){
     private fun navToProfileFragment() {
         findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
     }
-
-
-
-   private fun replaceFromFragmentToFragment(fragment: Fragment) {
-//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//        transaction.replace(R.id.fragmentContainer, fragment)
-//        transaction.addToBackStack(null)
-//        transaction.commit()
-       val transaction = requireActivity().supportFragmentManager.beginTransaction()
-           .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left,
-               R.anim.fade_in, R.anim.fade_out)
-       transaction.replace(R.id.fragmentContainer, fragment)
-       transaction.commit()
-    }
-
-
-
 
 }

@@ -78,11 +78,4 @@ class HomeActivity : AppCompatActivity() {
         return !(PreferencesProvider.getBool(context, PreferencesKey.ONBOARDING) ?: false)
     }
 
-    fun replaceFragment(fragment: Fragment) {
-        val transaction = this.supportFragmentManager.beginTransaction()
-            .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left,
-                R.anim.fade_in, R.anim.fade_out)
-        transaction.replace(R.id.fragmentContainer, fragment)
-        transaction.commit()
-    }
 }

@@ -117,6 +117,7 @@ class ProfileFragment : Fragment() {
             progressDialog.setMessage("deslogueándose...")
             progressDialog.show()
             firebaseAuth.signOut()
+            PreferencesProvider.set(requireActivity(),PreferencesKey.IS_LOGGED_IN,false)
             startActivity(Intent(requireActivity(), HomeActivity::class.java))
         }
         progressDialog.dismiss()

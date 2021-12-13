@@ -32,13 +32,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_edittext3"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider6" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/searchImageButton"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
@@ -49,6 +49,198 @@
         app:layout_constraintTop_toTopOf="@+id/titleLabelWCollectionFragment"
         app:layout_constraintVertical_bias="0.473"
         app:srcCompat="@drawable/ic_baseline_search_24"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/wineTypesGridLayoutWineCollection"
+        android:layout_width="0dp"
+        android:layout_height="550dp"
+        android:background="@drawable/winecollection_background"
+        app:columnCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rowCount="2">
+
+<!--   Red wine Card-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/redwine_card"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:elevation="2dp"
+            app:cardCornerRadius="6dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:contentDescription="@string/winecollection_content_descr_red"
+                android:scaleType="center"
+                android:src="@drawable/winecollection_red"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tintoCardViewWineCollection"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/mukta_extrabold"
+                    android:text="@string/winecollection_content_descr_red"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textColor="@color/medium_brown"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+<!--   White wine Card-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/whitewine_card"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:elevation="2dp"
+            app:cardCornerRadius="6dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:contentDescription="@string/winecollection_content_descr_white"
+                android:scaleType="center"
+                android:src="@drawable/winecollection_white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/blancoCardViewWineCollection"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/mukta_extrabold"
+                    android:text="@string/winecollection_content_descr_white"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textColor="@color/medium_brown"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+<!-- Rose wine Card-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/rosewine_card"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:elevation="2dp"
+            app:cardCornerRadius="6dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:contentDescription="@string/winecollection_content_descr_rose"
+                android:scaleType="center"
+                android:src="@drawable/winecollection_rose"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rosadoCardViewWineCollection"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/mukta_extrabold"
+                    android:text="@string/winecollection_content_descr_rose"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textColor="@color/medium_brown"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+<!--    Sparkling wine Card-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/sparklingwine_card"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:elevation="2dp"
+            app:cardCornerRadius="6dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:contentDescription="@string/winecollection_content_descr_sparkling"
+                android:scaleType="center"
+                android:src="@drawable/winecollection_sparkling"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/espumosoCardViewWineCollection"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/mukta_extrabold"
+                    android:text="@string/winecollection_content_descr_sparkling"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textColor="@color/medium_brown"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.gridlayout.widget.GridLayout>
+
+<!--    Wine Type List RV-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/typesListWineCollection"
+        android:layout_width="match_parent"
+        android:layout_height="660dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/collectionsSearchView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

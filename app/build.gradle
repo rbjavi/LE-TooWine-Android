@@ -37,8 +37,9 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
     def nav_version = "2.3.5"
-    ext.anko_version ='0.10.8'
+    def anko_version ='0.10.8'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
@@ -61,6 +62,7 @@ dependencies {
     //For doing async web scraping html running background
     implementation "org.jetbrains.anko:anko:$anko_version"
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
+    implementation "org.jetbrains.anko:anko-gridlayout-v7:$anko_version"
 
     //For loading images into recyclerview faster
     implementation 'com.github.bumptech.glide:glide:4.12.0'

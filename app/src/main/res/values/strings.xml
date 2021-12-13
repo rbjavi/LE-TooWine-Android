@@ -92,14 +92,22 @@
     <string name="failed_saving_user_info">Falló al guardar los datos de usuario a la base de datos</string>
     <string name="successful_saving_user_info">Éxito al guardar en la base de datos</string>
     <string name="fail_to_log_in">Error al iniciar sesión:</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="invalid_webscraping">Error al extraer datos del sitio web</string>
+
     <string name="must_be_logged_in">Debes estar logueado para añadir a tu lista de deseos</string>
+
+    <!--  Forgot_PasswordFragment  -->
     <string name="forgot_password">Recuperación Contraseña</string>
     <string name="continue_forgot_password">Continuar</string>
     <string name="email_sent">Link de recuperación fue enviado al email proporcionado</string>
     <string name="fail_to_send_recovery_email">Falló al enviar su link de recuperación de contraseña</string>
+
+    <!--   WineCollectionFragment -->
+    <string name="winecollection_content_descr_red">Tinto</string>
+    <string name="winecollection_content_descr_rose">Rosado</string>
+    <string name="winecollection_content_descr_sparkling">Espumoso</string>
+    <string name="winecollection_content_descr_white">Blanco</string>
+
 
 
 </resources>

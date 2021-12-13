@@ -23,6 +23,7 @@ import com.jruizb.toowine.domain.WineItems
 import com.jruizb.toowine.util.Constants.NO_PRICE_WINE_RECYCLER
 import com.jruizb.toowine.util.Constants.NO_TYPE_WINE_RECYCLER
 import com.jruizb.toowine.util.CertificateJsoup
+import com.jruizb.toowine.util.Constants
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jsoup.Jsoup
@@ -97,7 +98,6 @@ class HomeFragment : Fragment() {
 
 
     private fun retrieveWineDealsInfoFromWeb() {
-//        val recyclerV = findViewById<RecyclerView>(R.id.fgHomeDealsWineRecyclerView)
         var wineUrl: String
         var wineName: String
         var wineDenominacion: String
@@ -106,7 +106,7 @@ class HomeFragment : Fragment() {
 
         doAsync {
             val doc = Jsoup.connect(
-                "https://www.drinksco.es/productos:o:ofertas"
+                "https://www.drinksco.es/"+Constants.URI_DEALS
             ).sslSocketFactory(CertificateJsoup.socketFactory()).get()
 
             val winitosGrid = doc.getElementsByClass("product-container")
