@@ -13,12 +13,7 @@ import androidx.preference.PreferenceManager
  */
 enum class PreferencesKey(val value: String) {
     ONBOARDING("onboarding"),
-    IS_LOGGED_IN("logged_in"),
-    USER_NAME("username"),
-    EMAIL("email"),
-    PASSWORD("password"),
-    FIRST_START("firstFav")
-
+    IS_LOGGED_IN("logged_in")
 }
 
 
@@ -37,27 +32,6 @@ object PreferencesProvider {
     fun getBool(context: Context, key: PreferencesKey): Boolean? {
         return prefs(context).getBoolean(key.value, false)
     }
-
-    fun getString(context: Context, key: PreferencesKey): String? {
-        return prefs(context).getString(key.value, "")
-    }
-
-    //     fun saveState(context: Context, isFavourite: Boolean) {
-//        val aSharedPreferences: SharedPreferences = this.prefs(
-//            context
-//        )
-//        val aSharedPreferencesEdit = aSharedPreferences
-//            .edit()
-//        aSharedPreferencesEdit.putBoolean("State", isFavourite)
-//        aSharedPreferencesEdit.apply()
-//    }
-//
-//     fun readState(context: Context,): Boolean {
-//        val aSharedPreferenes: SharedPreferences = this.prefs(
-//            context
-//        )
-//        return aSharedPreferenes.getBoolean("State", true)
-//    }
 
     /**
      * Obtiene una instancia SharedPreferences que apunta al archivo por defecto que es usado
