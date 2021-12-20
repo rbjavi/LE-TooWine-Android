@@ -10,6 +10,7 @@ import android.widget.ImageView
  * A fecha 20/11/2021
  */
 data class FavoriteItems(
-    var wineNameFavs: String,
-    var wineImageFavs: ImageView
+    var wineImageFavs: String,
+    var wineNameFavs: String
+
     )

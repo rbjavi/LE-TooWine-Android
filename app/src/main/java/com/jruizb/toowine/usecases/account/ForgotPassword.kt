@@ -2,18 +2,16 @@ package com.jruizb.toowine.usecases.account
 
 import android.os.Bundle
 import android.util.Patterns.EMAIL_ADDRESS
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.jruizb.toowine.R
-import com.jruizb.toowine.databinding.FragmentFavoritesBinding
 import com.jruizb.toowine.databinding.FragmentForgotPasswordBinding
-import com.jruizb.toowine.databinding.FragmentProfileBinding
 
 
 class ForgotPassword : Fragment() {
@@ -49,7 +47,6 @@ class ForgotPassword : Fragment() {
 
         performForgetPassword()
     }
-
 
     private fun validateInput(): Boolean {
         if (rEmail?.text.toString() == "") {

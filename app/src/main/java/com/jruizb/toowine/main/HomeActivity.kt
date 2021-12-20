@@ -1,20 +1,10 @@
 package com.jruizb.toowine.main
 
-import android.annotation.SuppressLint
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.view.ViewTreeObserver
-import android.widget.ProgressBar
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -28,7 +18,7 @@ import com.jruizb.toowine.preferences.PreferencesProvider
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var  bindingHome: ActivityHomeBinding
+    private lateinit var bindingHome: ActivityHomeBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,21 +26,18 @@ class HomeActivity : AppCompatActivity() {
 
         installSplashScreen()
         setupOnboarding()
-    }
-
-    override fun onStart() {
-        super.onStart()
         loadAppView()
     }
 
-    private fun loadAppView () {
+    private fun loadAppView() {
         bindingHome = inflate(layoutInflater)
         setContentView(bindingHome.root)
 
         /* Configuración del controlador de bottomNavigationBar y UI ActionBar label */
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigatin_view)
         //Retorna el FragmentManager para interactuar con los fragmentos asociados a esta actividad
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         //El NavHostFragment provee un area dentro del layout para que ocurra la navegación entre fragments
         val navController = navHostFragment.navController
 
@@ -77,5 +64,6 @@ class HomeActivity : AppCompatActivity() {
     private fun isOnboardingOnSharedPreferences(context: Context): Boolean {
         return !(PreferencesProvider.getBool(context, PreferencesKey.ONBOARDING) ?: false)
     }
+
 
 }

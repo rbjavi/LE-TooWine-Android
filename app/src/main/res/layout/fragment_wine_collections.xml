@@ -11,14 +11,13 @@
         style="@style/TextAppearance.MaterialComponents.Headline4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:background="@drawable/shape_edittext"
-        android:elevation="20dp"
+        android:elevation="5dp"
         android:text="@string/wine_collections_fragment"
         android:textAlignment="center"
         android:textColor="@color/medium_gray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <View
         android:id="@+id/divider6"
@@ -27,29 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleLabelWCollectionFragment" />
 
-    <SearchView
-        android:id="@+id/collectionsSearchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_edittext3"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider6" />
-
-    <ImageButton
-        android:id="@+id/searchImageButton"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="32dp"
-        android:background="@color/transparent"
-        android:elevation="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/divider6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/titleLabelWCollectionFragment"
-        app:layout_constraintVertical_bias="0.473"
-        app:srcCompat="@drawable/ic_baseline_search_24"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/wineTypesGridLayoutWineCollection"
@@ -63,8 +39,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:rowCount="2">
 
-<!--   Red wine Card-->
-        <androidx.cardview.widget.CardView
+<!--    Red wine Card-->
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/redwine_card"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -72,7 +48,8 @@
             android:elevation="2dp"
             app:cardCornerRadius="6dp"
             app:layout_columnWeight="1"
-            app:layout_rowWeight="1">
+            app:layout_rowWeight="1"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -103,10 +80,10 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-<!--   White wine Card-->
-        <androidx.cardview.widget.CardView
+<!--    White wine Card-->
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/whitewine_card"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -144,10 +121,10 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-<!-- Rose wine Card-->
-        <androidx.cardview.widget.CardView
+<!--    Rose wine Card-->
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/rosewine_card"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -185,10 +162,10 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
 <!--    Sparkling wine Card-->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/sparklingwine_card"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -226,21 +203,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.gridlayout.widget.GridLayout>
-
-<!--    Wine Type List RV-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/typesListWineCollection"
-        android:layout_width="match_parent"
-        android:layout_height="660dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/collectionsSearchView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

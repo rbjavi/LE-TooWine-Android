@@ -15,7 +15,7 @@ data class WineItems(
     val originCertificate: String,
     val currentPrice: String,
     val originalPrice: String,
-    var favStatus:Boolean = true
+    var favStatus:Boolean = false
 )
 
 

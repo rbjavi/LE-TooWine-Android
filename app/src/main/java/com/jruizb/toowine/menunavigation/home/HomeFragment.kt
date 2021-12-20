@@ -1,20 +1,18 @@
 package com.jruizb.toowine.menunavigation.home
 
-import android.app.ProgressDialog
 import android.content.Context
-import android.media.metrics.Event
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jruizb.toowine.R
 import com.jruizb.toowine.databinding.FragmentHomeBinding
@@ -24,6 +22,8 @@ import com.jruizb.toowine.util.Constants.NO_PRICE_WINE_RECYCLER
 import com.jruizb.toowine.util.Constants.NO_TYPE_WINE_RECYCLER
 import com.jruizb.toowine.util.CertificateJsoup
 import com.jruizb.toowine.util.Constants
+import com.jruizb.toowine.util.Constants.URI_DEALS
+import com.jruizb.toowine.util.Constants.URL_WEBSCRAPING
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jsoup.Jsoup
@@ -34,19 +34,20 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var _recyclerBinding: HomewineRecyclerItemsBinding? = null
-//    private val recyclerViewWines: RecyclerView? = null
 
     private var firebaseFirestoreInstance: FirebaseFirestore? = null
     private var dbReference: CollectionReference? = null
     private var dbFavReference: CollectionReference? = null
+    private var dbUsersRef: CollectionReference? = null
 
     private lateinit var firebaseAuth: FirebaseAuth
 
     private var activityContext: Context? = null
 
-
     private val wineologoList = ArrayList<WineItems>()
     private var favButton: ImageButton? = null;
+
+    private var recy:HomeRecyclerAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,16 +59,13 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         //Contexto de la actividad a la que está asociada este fragment
         activityContext = context
+
+        recy = HomeRecyclerAdapter(requireContext(), wineologoList)
         //Inicialización de firebase auth
         firebaseAuth = FirebaseAuth.getInstance()
         //Inicialización de firestore para poder realizar las operaciones de lectura o escritura
@@ -76,26 +74,41 @@ class HomeFragment : Fragment() {
         dbReference = firebaseFirestoreInstance!!.collection("client")
         dbFavReference = firebaseFirestoreInstance!!.collection("favoriteWines")
 
+        dbUsersRef = firebaseFirestoreInstance!!.collection("users")
         retrieveWineDealsInfoFromWeb()
-//        favoriteSetup()
+    }
 
-        addToWishList()
+    override fun onStart() {
+        super.onStart()
+
+//        checkFavorites()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
-    private fun addToWishList() {
-        favButton?.setOnClickListener {
-            val checkUserLoggedIn:FirebaseUser? = firebaseAuth.currentUser
-            if (checkUserLoggedIn != null) { //If any user is logged in
-                Toast.makeText(context,requireContext().getString(R.string.must_be_logged_in),Toast.LENGTH_SHORT).show()
-            }
-            else {
-                Toast.makeText(context,requireContext().getString(R.string.login_welcome),Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-
+//    private fun checkFavorites() {
+//            val userLoggedIn = firebaseAuth.currentUser
+//
+//        userLoggedIn?.let {
+//
+//        dbUsersRef?.document(userLoggedIn.uid)?.collection("favoriteWines")
+//            ?.whereEqualTo("userID", userLoggedIn.uid)
+//            ?.get()?.addOnCompleteListener {
+//                if (it.isSuccessful) {
+////                    Log.i("////", recy?.itemCount.toString())
+//                    for (docSnap: DocumentSnapshot in it.result!!) {
+//
+//                        favButton?.setBackgroundResource(R.drawable.ic_fav_selected_star_24)
+//                        Log.d("HomeFragment", docSnap.id + " => " + docSnap.data)
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private fun retrieveWineDealsInfoFromWeb() {
         var wineUrl: String
@@ -106,7 +119,7 @@ class HomeFragment : Fragment() {
 
         doAsync {
             val doc = Jsoup.connect(
-                "https://www.drinksco.es/"+Constants.URI_DEALS
+                URL_WEBSCRAPING + URI_DEALS
             ).sslSocketFactory(CertificateJsoup.socketFactory()).get()
 
             val winitosGrid = doc.getElementsByClass("product-container")
@@ -159,17 +172,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-    }
-
-    //FIX THIS
-    private fun updateEvent(event: Event) {
-        _recyclerBinding?.wineStarImageButton?.setOnClickListener() {
-            deleteEvent(event)
-        }
-    }
-    //******
-    private fun deleteEvent(event: Event) {
-
     }
 }
 

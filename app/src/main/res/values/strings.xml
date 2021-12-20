@@ -78,7 +78,7 @@
     <string name="name_profile">Nombre de usuario</string>
 
 
-    <!--   SignupFragment: validation Toast -->
+    <!--   Signup_Fragment: validation Toast -->
     <string name="name_not_empty">Nombre no debe estar vacío</string>
     <string name="email_not_empty">Email no debe estar vacío</string>
     <string name="pass_not_empty">Contraseña no debe estar vacía</string>
@@ -94,11 +94,13 @@
     <string name="fail_to_log_in">Error al iniciar sesión:</string>
     <string name="invalid_webscraping">Error al extraer datos del sitio web</string>
 
-    <string name="must_be_logged_in">Debes estar logueado para añadir a tu lista de deseos</string>
+    <!--   Favorites_Fragment -->
+    <string name="must_be_logged_in_favs">Debes estar logueado para añadir a la lista de deseos</string>
 
-    <!--  Forgot_PasswordFragment  -->
-    <string name="forgot_password">Recuperación Contraseña</string>
-    <string name="continue_forgot_password">Continuar</string>
+    <!--  Forgot_Password_Fragment  -->
+    <string name="forgot_password">Recuperar Contraseña</string>
+    <string name="continue_forgot_password">Recuperar</string>
+    <string name="back_to_login">volver a inciar sesión</string>
     <string name="email_sent">Link de recuperación fue enviado al email proporcionado</string>
     <string name="fail_to_send_recovery_email">Falló al enviar su link de recuperación de contraseña</string>
 
@@ -108,6 +110,12 @@
     <string name="winecollection_content_descr_sparkling">Espumoso</string>
     <string name="winecollection_content_descr_white">Blanco</string>
 
+<!--    WineTypeListFragment-->
+    <string name="wine_typeList_fragment">Tipos</string>
+    <string name="empty_recycler">Agrega tu primer Vino a la lista de deseos</string>
+
+<!--    HomeRecyclerAdapter-->
+    <string name="failed_to_get_document_data">Falló al obtener datos del documento en la base de datos</string>
 
 
 </resources>

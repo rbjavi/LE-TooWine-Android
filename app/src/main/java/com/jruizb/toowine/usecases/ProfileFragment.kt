@@ -28,7 +28,7 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var firebaseFirestoreInstance: FirebaseFirestore? = null
-    private var dbUserReference: CollectionReference? = null
+    private var dbUsersRef: CollectionReference? = null
 
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var progressDialog: ProgressDialog
@@ -59,7 +59,7 @@ class ProfileFragment : Fragment() {
         //Inicialización de firestore para poder realizar las operaciones de lectura o escritura
         firebaseFirestoreInstance = FirebaseFirestore.getInstance()
         //Obtiene la referencia de un documento de la db
-        dbUserReference = firebaseFirestoreInstance!!.collection("client")
+        dbUsersRef = firebaseFirestoreInstance!!.collection("users")
 
         //Inicialización de progressDialog
         if (context != null) {
@@ -90,19 +90,19 @@ class ProfileFragment : Fragment() {
     }
 
     private fun getInfoFromCurrentProfile() {
-        val userId = firebaseAuth.currentUser?.uid
-        val user = firebaseAuth.currentUser
+        val userLoggedIn = firebaseAuth.currentUser
         var name: String
 
-        user?.let {
+        userLoggedIn?.let {
             with(binding) {
-                dbUserReference?.whereEqualTo("uid", userId)
+                dbUsersRef?.document(userLoggedIn.uid)?.collection("user")
+                    ?.whereEqualTo("uid", userLoggedIn.uid)
                     ?.get()?.addOnCompleteListener {
                         if (it.isSuccessful) {
                             for (docSnap: DocumentSnapshot in it.result!!) {
                                 name = docSnap.get("name").toString()
                                 nameProfile.text = name
-                                emailProfile.text = user.email
+                                emailProfile.text = userLoggedIn.email
                             }
                         }
                     }

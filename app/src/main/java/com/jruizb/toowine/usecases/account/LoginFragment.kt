@@ -2,14 +2,13 @@ package com.jruizb.toowine.usecases.account
 
 import android.app.ProgressDialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -66,10 +65,15 @@ class LoginFragment : Fragment(){
             progressDialog.setCanceledOnTouchOutside(false)
         }
 
+
     }
 
     override fun onStart() {
         super.onStart()
+        //Si hay un usuario logueado, se carga el fragmento profile
+        if(firebaseAuth.currentUser != null) {
+            navToProfileFragment()
+        }
 
         binding.loginMaterialButton.setOnClickListener {
             validateData()
@@ -83,10 +87,7 @@ class LoginFragment : Fragment(){
         binding.forgotPasswordLogin.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_forgotPassword)
         }
-        //Si hay un usuario logueado, se carga el fragmento profile
-        if(firebaseAuth.currentUser != null) {
-            navToProfileFragment()
-        }
+
     }
 
     override fun onDestroyView() {

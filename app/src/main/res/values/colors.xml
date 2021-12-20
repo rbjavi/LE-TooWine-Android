@@ -12,7 +12,7 @@
     <color name="dark_shadow">#33000000</color>
     <color name="background">#FFFFFFFF</color>
     <color name="secondary_background">#FFF0F0FF</color>
-    <color name="text">#FF0D0D0D</color>
+    <color name="text">#212121</color>
     <color name="live">#FFFA2828</color>
     <color name="on_boarding">#F57C00</color>
 <!--    <color name="on_boarding">#E2504C</color>-->

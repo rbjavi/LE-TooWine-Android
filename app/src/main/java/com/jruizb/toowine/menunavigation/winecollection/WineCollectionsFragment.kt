@@ -1,24 +1,15 @@
 package com.jruizb.toowine.menunavigation.winecollection
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.gridlayout.widget.GridLayout
+import androidx.navigation.findNavController
 import com.jruizb.toowine.R
-import com.jruizb.toowine.databinding.FragmentHomeBinding
-import com.jruizb.toowine.databinding.FragmentLoginBinding
 import com.jruizb.toowine.databinding.FragmentWineCollectionsBinding
-import com.jruizb.toowine.domain.WineItems
-import com.jruizb.toowine.menunavigation.home.HomeRecyclerAdapter
-import com.jruizb.toowine.util.CertificateJsoup
 import com.jruizb.toowine.util.Constants
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.support.v4.runOnUiThread
-import org.jsoup.Jsoup
 
 
 class WineCollectionsFragment : Fragment() {
@@ -26,10 +17,6 @@ class WineCollectionsFragment : Fragment() {
     // Esta propiedad es sólo válida entre onCreateView y
     // onDestroyView.
     private val binding get() = _binding!!
-
-
-    private var recyclerHome: FragmentHomeBinding? = null
-    private val wineList = ArrayList<WineItems>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,115 +35,66 @@ class WineCollectionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
     }
 
     override fun onStart() {
         super.onStart()
 
-        checkVisibleSearchBar()
-        clickOnWineTypesCard()
-    }
-
-    private fun checkVisibleSearchBar () {
-        binding.searchImageButton.setOnClickListener {
-        if (binding.collectionsSearchView.visibility == View.GONE) {
-
-                binding.collectionsSearchView.visibility = View.VISIBLE
-
-        } else if (binding.collectionsSearchView.visibility == View.VISIBLE){
-
-                binding.collectionsSearchView.visibility = View.GONE
-            }
+//        checkVisibleSearchBar()
+        view?.let {
+            clickOnWineTypesCard(it)
         }
-    }
-
-
-    private fun clickOnWineTypesCard() {
-        binding.redwineCard.setOnClickListener {
-            searchWineTypes(Constants.URI_RED_WINE)
-            binding.wineTypesGridLayoutWineCollection.visibility = View.GONE
-        }
-
-        binding.whitewineCard.setOnClickListener {
-            searchWineTypes(Constants.URI_WHITE_WINE)
-            binding.wineTypesGridLayoutWineCollection.visibility = View.GONE
-        }
-
-        binding.rosewineCard.setOnClickListener {
-            searchWineTypes(Constants.URI_ROSE_WINE)
-            binding.wineTypesGridLayoutWineCollection.visibility = View.GONE
-        }
-
-        binding.sparklingwineCard.setOnClickListener {
-            searchWineTypes(Constants.URI_SPARKLING_WINE)
-            binding.wineTypesGridLayoutWineCollection.visibility = View.GONE
-        }
-
 
     }
 
-    private fun searchWineTypes(url:String) {
-        var wineUrl: String
-        var wineName: String
-        var wineDenominacion: String
-        var wineCurrentPrice: String
-        var wineOriginalPrice: String
+//    private fun checkVisibleSearchBar () {
+//        binding.searchImageButton.setOnClickListener {
+//        if (binding.collectionsSearchView.visibility == View.GONE) {
+//
+//                binding.collectionsSearchView.visibility = View.VISIBLE
+//
+//        } else if (binding.collectionsSearchView.visibility == View.VISIBLE){
+//
+//                binding.collectionsSearchView.visibility = View.GONE
+//            }
+//        }
+//    }
 
-        doAsync {
-            val doc = Jsoup.connect(
-                "https://www.drinksco.es/$url"
-            ).sslSocketFactory(CertificateJsoup.socketFactory()).get()
+    private fun clickOnWineTypesCard(view: View) {
+        //La vista de gridlayout
+        val grid: GridLayout = requireView().findViewById(R.id.wineTypesGridLayoutWineCollection)
+        val childCount: Int = grid.childCount  //El número total de hijos del grupo GridLayout
 
-            val winitosGrid = doc.getElementsByClass("product-container")
-            for (i in winitosGrid) {
-                /*https://www.drinksco.es/productos:o:ofertas" */
-                /* IMAGEN VINO */
-                wineUrl = i.getElementsByTag("img").attr("data-src")
-                wineUrl = wineUrl.replace("\\s".toRegex(), "")
-
-                if (wineUrl == "") {
-                    wineUrl = i.getElementsByTag("img").attr("src")
-                }
-
-                /* NOMBRE VINO */
-                wineName = i.getElementsByTag("h2").text()
-
-                /* DENOMINACION VINO */
-                wineDenominacion = i.getElementsByClass("region-name").text()
-                if (wineDenominacion == "") {
-                    wineDenominacion = Constants.NO_TYPE_WINE_RECYCLER
-                }
-
-                /* PRECIO */
-                wineCurrentPrice = i.getElementsByClass("current_price").text()
-                if (wineCurrentPrice == "") {
-                    wineCurrentPrice = Constants.NO_PRICE_WINE_RECYCLER
-                }
-
-                /* PRECIO ORIGINAL */
-                wineOriginalPrice = i.getElementsByClass("original_price").text()
-                if (wineOriginalPrice == "") {
-                    wineOriginalPrice = ""
-                }
-                wineList.add(
-                    WineItems(
-                        wineUrl, wineName, wineDenominacion, wineCurrentPrice, wineOriginalPrice
-                    )
-                )
-            }
-            runOnUiThread {
-                //No puede acceder a los elementos UI desde el hilo background
-                context?.let {
-                    //Le paso al adapter el contexto que es en este caso el de Main Activity y la lista
-                    //con los argumentos que conforman un vino(Objeto)
-                    binding.typesListWineCollection.layoutManager =
-                        GridLayoutManager(context,2, RecyclerView.VERTICAL, false)
-                    binding.typesListWineCollection.adapter =
-                        HomeRecyclerAdapter(requireContext(), wineList)
+        for (i in 0 until childCount) {
+            grid.getChildAt(i).setOnClickListener {
+//                Toast.makeText(requireContext(),"position $i",Toast.LENGTH_SHORT).show()
+                when (i) {
+                    0 -> {
+                        val uri = Constants.URI_RED_WINE
+                        val t = Constants.TEXT_RED_WINE
+                        val action = WineCollectionsFragmentDirections.actionWineCollectionFragmentToWineTypeList(uri,t)
+                        view.findNavController().navigate(action)
+                    }
+                    1 -> {
+                        val uri = Constants.URI_WHITE_WINE
+                        val t = Constants.TEXT_WHITE_WINE
+                        val action = WineCollectionsFragmentDirections.actionWineCollectionFragmentToWineTypeList(uri,t)
+                        view.findNavController().navigate(action)
+                    }
+                    2 -> {
+                        val uri = Constants.URI_ROSE_WINE
+                        val t = Constants.TEXT_ROSE_WINE
+                        val action = WineCollectionsFragmentDirections.actionWineCollectionFragmentToWineTypeList(uri,t)
+                        view.findNavController().navigate(action)
+                    }
+                    3 -> {
+                        val uri = Constants.URI_SPARKLING_WINE
+                        val t = Constants.TEXT_SPARKLING_WINE
+                        val action = WineCollectionsFragmentDirections.actionWineCollectionFragmentToWineTypeList(uri,t)
+                        view.findNavController().navigate(action)
+                    }
                 }
             }
         }
     }
-
 }

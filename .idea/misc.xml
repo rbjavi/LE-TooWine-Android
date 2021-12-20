@@ -7,6 +7,8 @@
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable-v24/shape_edittext2.xml" value="0.14814814814814814" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable-v24/shape_edittext3.xml" value="0.14814814814814814" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/background_searcher_fragment.xml" value="0.11990740740740741" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/custom_oval_background.xml" value="0.13148148148148148" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/favorite_imagebtt_state.xml" value="0.24027777777777778" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/gradient_background1.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.15555555555555556" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/ic_baseline_delete_outline_24.xml" value="0.15555555555555556" />
@@ -42,11 +44,11 @@
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/view_pager_background.xml" value="0.2703125" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/drawable/winecollection_background.xml" value="0.24027777777777778" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/activity_dash_board.xml" value="0.22592592592592592" />
-        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/activity_home.xml" value="0.2" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/activity_home.xml" value="0.176" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/activity_launch.xml" value="0.264" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/activity_onboarding.xml" value="0.2" />
-        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/favoritewine_recycler_items.xml" value="0.4" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/favoritewine_recycler_items.xml" value="0.264" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_blank.xml" value="0.22592592592592592" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_fav.xml" value="0.11574074074074074" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_favorites.xml" value="0.16799999999999998" />
@@ -54,12 +56,13 @@
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_login.xml" value="0.2222222222222222" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_news.xml" value="0.22592592592592592" />
-        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_news_feeds.xml" value="0.176" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_news_feeds.xml" value="0.152" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_signup.xml" value="0.176" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_wine_collection.xml" value="0.11574074074074074" />
-        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_wine_collections.xml" value="0.176" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_wine_collections.xml" value="0.264" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_wine_list.xml" value="0.22592592592592592" />
+        <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/fragment_wine_type_list.xml" value="0.22592592592592592" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/homewine_recycler_items.xml" value="0.22592592592592592" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/nav_graph.xml" value="0.11574074074074074" />
         <entry key="..\:/Users/ki-sa/AndroidStudio-Github/LE-TooWine-Android/app/src/main/res/layout/news_recycler_items.xml" value="0.264" />

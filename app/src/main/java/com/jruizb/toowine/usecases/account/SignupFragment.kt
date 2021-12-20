@@ -3,11 +3,11 @@ package com.jruizb.toowine.usecases.account
 import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,11 +16,9 @@ import com.jruizb.toowine.databinding.FragmentSignupBinding
 import com.jruizb.toowine.domain.UserProfile
 import com.jruizb.toowine.main.HomeActivity
 import java.util.*
-import kotlin.collections.HashMap
 
 
-
-class SignupFragment : Fragment() {
+class SignupFragment : Fragment(){
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
 
@@ -78,7 +76,6 @@ class SignupFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 
     /**
      * Función para validar los datos del registro de usuario
@@ -146,7 +143,7 @@ class SignupFragment : Fragment() {
         val date = Date(timestamp)  //parsea los milisengundos del sistema a fecha
 //        val dt = Instant.ofEpochSecond(timestamp).atZone(ZoneId.systemDefault()).toLocalDateTime()
 
-        //id autogenerado por firebaseauth y se lo pasamos a la variable uid
+        //ID autogenerado por firebaseauth y se lo pasamos a la key uid de la colección hashmap
         val  uid = firebaseAuth.uid
 
         val userAccountHashMap: HashMap<String, Any?> = hashMapOf(
@@ -157,8 +154,9 @@ class SignupFragment : Fragment() {
             "timestamp" to date
         )
         //Inserta el usuario que se acaba de registrar en la colección client si es exitoso
-        val db = FirebaseFirestore.getInstance().collection("client")
-            db.document().set(userAccountHashMap)
+        val dbUserRef = FirebaseFirestore.getInstance().collection("users")
+        if (uid != null) {
+            dbUserRef.document(uid).collection("user").document(uid).set(userAccountHashMap)
                 .addOnSuccessListener {
                     progressDialog.dismiss()
                     Toast.makeText(context,requireActivity().getString(R.string.successful_saving_user_info),Toast.LENGTH_SHORT).show()
@@ -169,33 +167,6 @@ class SignupFragment : Fragment() {
                     progressDialog.dismiss()
                     Toast.makeText(context,requireActivity().getString(R.string.failed_saving_user_info)+" "+{e.message},Toast.LENGTH_LONG).show()
                 }
+        }
     }
-
-
-//    private fun replaceFragment(fragment: Fragment) {
-//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//        transaction.replace(R.id.fragmentContainer, fragment)
-//        transaction.commit()
-//    }
-
-//    private fun stringtoDate(dates: String): Date {
-//        val sdf = SimpleDateFormat("EEE, MMM dd yyyy",
-//            Locale.ENGLISH)
-//        var date: Date? = null
-//        try {
-//            date = sdf.parse(dates)
-//            println(date)
-//        } catch (e: ParseException) {
-//            e.printStackTrace()
-//        }
-//        return date!!
-//    }
-
-//    override fun onClick(v: View?) {
-//        if (v != null){
-//            Navigation.findNavController(v).navigate(R.id.action_signupFragment_to_profileFragment)
-//        }
-//    }
-
-
 }

@@ -1,4 +1,4 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,9 +11,6 @@
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
 
-
-
-
         <ImageView
             android:id="@+id/favsImage"
             android:layout_width="100dp"
@@ -23,20 +20,20 @@
 
     <TextView
         android:id="@+id/favsName"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center|start"
         android:layout_marginStart="120dp"
-        android:text="@string/wine_name" />
+        android:text="@string/wine_name"
+        android:padding="5dp"/>
 
     <ImageButton
-            android:id="@+id/deleteFavsImageButton"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+        android:id="@+id/deleteFavsImageButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_gravity="center|end"
-            android:background="@drawable/ic_fav_selected_star_24"
-            tools:ignore="ImageContrastCheck,SpeakableTextPresentCheck" />
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ic_baseline_delete_outline_24"
+        tools:ignore="ImageContrastCheck,SpeakableTextPresentCheck" />
 
-
-
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

@@ -1,14 +1,24 @@
 package com.jruizb.toowine.menunavigation.favorites
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentSnapshot
+import com.jruizb.toowine.R
 import com.jruizb.toowine.databinding.FavoritewineRecyclerItemsBinding
+import com.jruizb.toowine.databinding.FragmentFavoritesBinding
 import com.jruizb.toowine.domain.FavoriteItems
 import com.jruizb.toowine.preferences.PreferencesKey
 import com.jruizb.toowine.preferences.PreferencesProvider
+import com.jruizb.toowine.provides.Firebase
 
 
 /**
@@ -17,18 +27,25 @@ import com.jruizb.toowine.preferences.PreferencesProvider
  * Creado por Javier RB
  * A fecha 20/11/2021
  */
-class FavoritesRecyclerAdapter (val contexto: Context, val favoriteItemsList: ArrayList<FavoriteItems>) :
-RecyclerView.Adapter<FavoritesRecyclerAdapter.RecyclerHolder>() {
+class FavoritesRecyclerAdapter(
+    private val contexto: Context,
+    val favoriteItemsList: ArrayList<FavoriteItems>
+) :
+    RecyclerView.Adapter<FavoritesRecyclerAdapter.RecyclerHolder>() {
+
+    private var firebaseAuth: FirebaseAuth = Firebase.provideFirebaseAuthentication()
+    private var firebaseFirestoreInstance = Firebase.provideFirebaseFirestore()
+
+    private var dbUsersRef: CollectionReference? =
+        Firebase.provideUsersRef(firebaseFirestoreInstance)
+    private var dbFavRef: CollectionReference? =
+        Firebase.provideFavWinesRef(firebaseFirestoreInstance)
 
     /**
      * Crea un viewholder y su vista asociada, y los inicializa sin llegar a vincular aun el viewholder
      * con los datos en especifico
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerHolder {
-        val firstStart:Boolean = PreferencesProvider.getBool(contexto, PreferencesKey.FIRST_START) == true
-        if (firstStart) {
-            createTableOnFirstStart()
-        }
         return RecyclerHolder(
             FavoritewineRecyclerItemsBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -42,7 +59,40 @@ RecyclerView.Adapter<FavoritesRecyclerAdapter.RecyclerHolder>() {
      * Actualiza y recupera los contenidos del RecyclerViewHolder con el item en la posición dada
      */
     override fun onBindViewHolder(holder: RecyclerHolder, position: Int) {
-        //holder.bind(favoriteItemsList[position])
+        holder.bind(favoriteItemsList[position])
+
+        val currentUser = firebaseAuth.currentUser
+        val deleteFavButton = holder.itemView.findViewById<ImageButton>(R.id.deleteFavsImageButton)
+        // Botón eliminar un vino de las lista de favoritos
+        deleteFavButton.setOnClickListener {
+            if (currentUser != null) {
+                val wineNameNotSpaces =
+                    favoriteItemsList[position].wineNameFavs.filter { !it.isWhitespace() }
+                dbUsersRef?.document(currentUser.uid)?.collection("favoriteWines")
+                ?.get()?.addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        for (docSnap: DocumentSnapshot in it.result!!) {
+                            if (wineNameNotSpaces == docSnap.id) {
+//                                Toast.makeText(
+//                                    contexto,
+//                                    "Vino : " + favoriteItemsList[position].wineNameFavs
+//                                            + "\nPosición: " + position,
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+                                dbUsersRef?.document(currentUser.uid)
+                                    ?.collection("favoriteWines")!!
+                                    .document(wineNameNotSpaces)?.delete()
+                                favoriteItemsList.removeAt(position)
+                                notifyItemRemoved(position)
+                            }
+
+                        }
+                    } else {
+                        Log.d("ERROR DOC", "Error getting documents: ", it.exception)
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -52,30 +102,20 @@ RecyclerView.Adapter<FavoritesRecyclerAdapter.RecyclerHolder>() {
         return favoriteItemsList.size
     }
 
-    private fun createTableOnFirstStart() {
-        PreferencesProvider.set(contexto,PreferencesKey.FIRST_START, true)
-    }
 
     //Clase interna con la inicializacion bindeada de los datos que se quieren obtener de un objeto Wine
     inner class RecyclerHolder(private val itemBinding: FavoritewineRecyclerItemsBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         /**
-         * Recoge los datos inicializados del objeto en cuestion para pasarlos a los elementos correspondientes
+         * Recoge los datos inicializados del objeto en cuestión para pasarlos a los elementos correspondientes
          * de la vista
          */
         fun bind(favsItems: FavoriteItems) = with(itemBinding) {
-//          itemBinding.apply {  //Se puede tambien llamar a la funcion apply() para aplicar solo una vez la variable que se esta bindeando
             favsName.text = favsItems.wineNameFavs
-
             Glide.with(contexto)
                 .load(favoriteItemsList[adapterPosition].wineImageFavs)
-                .override(200,200) //
+                .override(200, 200) //
                 .into(itemBinding.favsImage)
-//            Glide.with(contexto)
-//                .load(wineItemsList[adapterPosition].imageUrl)
-//                .transform(CircleCrop())
-//                .into(itemBinding.wineImage)
-//          }
         }
     }
 }
