@@ -17,6 +17,7 @@ import com.jruizb.toowine.databinding.FragmentLoginBinding
 import com.jruizb.toowine.main.HomeActivity
 import com.jruizb.toowine.preferences.PreferencesKey
 import com.jruizb.toowine.preferences.PreferencesProvider
+import com.jruizb.toowine.provides.Firebase
 
 
 class LoginFragment : Fragment(){
@@ -24,22 +25,13 @@ class LoginFragment : Fragment(){
     private val binding get() = _binding!!
 
     private lateinit var firebaseAuth: FirebaseAuth
-    private val firebaseFirestoreInstance = FirebaseFirestore.getInstance()
     private lateinit var progressDialog: ProgressDialog
 
     private var activityContext: Context? = null
-    private var home: HomeActivity? = null
-
-
 
     private var emailLogin = ""
     private var passwordLogin = ""
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +49,7 @@ class LoginFragment : Fragment(){
         activityContext = context
 
         //Inicializacion de firebase para obtener una instancia de ese objeto
-        firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuth = Firebase.provideFirebaseAuthentication()
 
         if (context!=null) {
             progressDialog = ProgressDialog(context)
@@ -123,6 +115,9 @@ class LoginFragment : Fragment(){
         }
     }
 
+    /**
+     * Función que permite iniciar sesión en firebase authentication si el email y el password son correctos
+     */
     private fun loginUser() {
         progressDialog.setMessage("logueándose...")
         progressDialog.show()
@@ -145,6 +140,10 @@ class LoginFragment : Fragment(){
             }
     }
 
+    /**
+     * Función para navegar mediante una acción preestablecida en el navigation graph en el que contiene
+     * todos los destinos y acciones entre fragments
+     */
     private fun navToProfileFragment() {
         findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
     }

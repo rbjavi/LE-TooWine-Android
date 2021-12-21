@@ -17,12 +17,14 @@ import com.jruizb.toowine.databinding.FragmentProfileBinding
 import com.jruizb.toowine.main.HomeActivity
 import com.jruizb.toowine.preferences.PreferencesKey
 import com.jruizb.toowine.preferences.PreferencesProvider
+import com.jruizb.toowine.provides.Firebase.provideFirebaseAuthentication
+import com.jruizb.toowine.provides.Firebase.provideFirebaseFirestore
+import com.jruizb.toowine.provides.Firebase.provideUsersRef
 import kotlin.concurrent.timerTask
 
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
-
     // Esta propiedad es sólo válida entre onCreateView y
     // onDestroyView.
     private val binding get() = _binding!!
@@ -33,7 +35,6 @@ class ProfileFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var progressDialog: ProgressDialog
 
-    private val homeActivity: HomeActivity? = null
     private var activityContext: Context? = null
 
 
@@ -49,17 +50,17 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Botón logout a invisible inicialmente mientras no haya un usuario logueado
+        //Botón logout invisible inicialmente mientras no haya un usuario logueado
         binding.logoutProfileButton.visibility = View.INVISIBLE
 
         //Contexto de la actividad a la que está asociada este fragment
         activityContext = context
         //Inicialización de firebase auth
-        firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuth = provideFirebaseAuthentication()
         //Inicialización de firestore para poder realizar las operaciones de lectura o escritura
-        firebaseFirestoreInstance = FirebaseFirestore.getInstance()
+        firebaseFirestoreInstance = provideFirebaseFirestore()
         //Obtiene la referencia de un documento de la db
-        dbUsersRef = firebaseFirestoreInstance!!.collection("users")
+        dbUsersRef = provideUsersRef(firebaseFirestoreInstance!!)
 
         //Inicialización de progressDialog
         if (context != null) {
@@ -89,6 +90,9 @@ class ProfileFragment : Fragment() {
         return !(PreferencesProvider.getBool(context, PreferencesKey.IS_LOGGED_IN) ?: false)
     }
 
+    /**
+     * Función que obtiene y muestra los datos del actual usuario que haya iniciado sessión
+     */
     private fun getInfoFromCurrentProfile() {
         val userLoggedIn = firebaseAuth.currentUser
         var name: String

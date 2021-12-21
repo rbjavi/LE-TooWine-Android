@@ -20,11 +20,6 @@ import com.jruizb.toowine.databinding.FragmentFavoritesBinding
 import com.jruizb.toowine.domain.FavoriteItems
 import com.jruizb.toowine.provides.Firebase
 import com.jruizb.toowine.util.Constants.FAVORITEWINES_SUBCOLLECTION
-import com.google.firebase.firestore.QuerySnapshot
-
-import androidx.annotation.NonNull
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 
 
 class FavoritesFragment : Fragment() {
@@ -46,7 +41,7 @@ class FavoritesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         // Inflate the layout for this fragment
         _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
@@ -80,6 +75,12 @@ class FavoritesFragment : Fragment() {
         _binding = null
     }
 
+    /**
+     * Función que comprueba si hay vinos guardados en la lista de favoritos, si el usuario
+     * no ha iniciado sesión, muestra un Toast advirtiendo que debes estarlo para visualizar el listado.
+     * Si estás logueado pero no hay has guardado anteriormente un vino, muestra un texto. Si ya
+     * habías guardado vinos, muestra el listado con los mismos
+     */
     private fun setUpFavoriteView() {
         val currentUser: FirebaseUser? = firebaseAuth.currentUser
         if (currentUser != null) {
@@ -96,20 +97,15 @@ class FavoritesFragment : Fragment() {
                         }
                     }
                 }
-
-//            Log.d("ITM", binding.recyclerVWineFavs.adapter?.itemCount.toString())
-//            if (binding.recyclerVWineFavs.adapter?.itemCount == null) {
-//                binding.favSubTitleEmptyRecycler.visibility = View.VISIBLE
-//            } else {
-//
-//            }
-//            binding.recyclerVWineFavs.visibility = View.VISIBLE
         } else {
             binding.favSubTitleMustBeLoggedIn.visibility = View.VISIBLE
             Toast.makeText(context,requireContext().getString(R.string.must_be_logged_in_favs), Toast.LENGTH_SHORT).show()
         }
     }
 
+    /**
+     * Obtiene y muestra los vinos guardados en la base de datos para ese usuario
+     */
     private fun getFavoriteWineList() {
         val currentUser = firebaseAuth.currentUser
         if (currentUser != null) {
@@ -118,23 +114,22 @@ class FavoritesFragment : Fragment() {
                 ?.get()?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         for (docSnap: DocumentSnapshot in task.result!!) {
-                                wineFavsList.add(
-                                    FavoriteItems(
-                                        docSnap.getString("image").toString(), docSnap.get("name").toString()
-                                    )
+                            wineFavsList.add(
+                                FavoriteItems(
+                                    docSnap.getString("image").toString(), docSnap.get("name").toString()
                                 )
-                            Log.d("DOC", docSnap.id + " => " + docSnap.getString("image").toString()+" / "+ docSnap.get("name").toString())
+                            )
                         }
                     }
-                    context?.let {
-                        //Le paso al adapter el contexto que es en este caso el de Main Activity y la lista
-                        //con los argumentos que conforman un vino(Objeto)
-                        binding.recyclerVWineFavs.layoutManager =
-                            LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                        binding.recyclerVWineFavs.adapter =
-                            FavoritesRecyclerAdapter(requireContext(), wineFavsList)
-                    }
+                context?.let {
+                    //Le paso al adapter el contexto que es en este caso el de Main Activity y la lista
+                    //con los argumentos que conforman un vino(Objeto)
+                    binding.recyclerVWineFavs.layoutManager =
+                        LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                    binding.recyclerVWineFavs.adapter =
+                        FavoritesRecyclerAdapter(requireContext(), wineFavsList)
                 }
+            }
         }
     }
 }

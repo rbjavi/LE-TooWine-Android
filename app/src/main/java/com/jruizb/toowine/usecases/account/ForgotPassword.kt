@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.jruizb.toowine.R
 import com.jruizb.toowine.databinding.FragmentForgotPasswordBinding
+import com.jruizb.toowine.provides.Firebase
 
 
 class ForgotPassword : Fragment() {
@@ -37,23 +38,25 @@ class ForgotPassword : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //Inicializacion de firebase para obtener una instancia de ese objeto
-        firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuth = Firebase.provideFirebaseAuthentication()
 
+        //Inicialización del campo texto email
         rEmail = binding.emailETForgot
 
         binding.backToLoginForgot.setOnClickListener {
             findNavController().navigate(R.id.action_forgotPassword_to_loginFragment)
         }
 
-        performForgetPassword()
+        sendLinkRecoverPassword()
     }
 
-    private fun validateInput(): Boolean {
+    private fun validateEmailInput(): Boolean {
+        // Comprueba que el campo email no esté vacío
         if (rEmail?.text.toString() == "") {
             rEmail?.error = "Introduce un email"
             return false
         }
-        // checking the proper email format
+        // Comprueba el formato válido de un email
         if (!isEmailValid(rEmail?.text.toString())) {
             rEmail?.error = "Introduce un email válido"
             return false
@@ -65,9 +68,9 @@ class ForgotPassword : Fragment() {
         return EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    private fun performForgetPassword () {
+    private fun sendLinkRecoverPassword () {
         binding.continueButtonForgot.setOnClickListener {
-            if (validateInput()) {
+            if (validateEmailInput()) {
                 val linkMail = rEmail?.text.toString()
                 firebaseAuth.sendPasswordResetEmail(linkMail)
                     .addOnSuccessListener {

@@ -9,6 +9,5 @@ package com.jruizb.toowine.domain
  */
 data class NewsItems(
     val imageURLNews: String,
-//    val titleNews: String,
     val descriptionNews: String
 )

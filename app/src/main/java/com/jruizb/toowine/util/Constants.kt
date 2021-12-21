@@ -9,6 +9,9 @@ package com.jruizb.toowine.util
  */
 object Constants {
     const val  URL_WEBSCRAPING = "https://www.drinksco.es/"
+    //NewsFragment
+    const val  URL_NEWSDATASCRAPED = "https://www.directoalpaladar.com/categoria/enologia"
+
     //HomeFragment
     const val URI_DEALS = "productos:o:ofertas"
     const val NO_TYPE_WINE_RECYCLER = "No type"

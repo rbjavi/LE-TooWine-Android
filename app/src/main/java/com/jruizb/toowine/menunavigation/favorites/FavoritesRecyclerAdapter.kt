@@ -3,10 +3,8 @@ package com.jruizb.toowine.menunavigation.favorites
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -14,10 +12,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.jruizb.toowine.R
 import com.jruizb.toowine.databinding.FavoritewineRecyclerItemsBinding
-import com.jruizb.toowine.databinding.FragmentFavoritesBinding
 import com.jruizb.toowine.domain.FavoriteItems
-import com.jruizb.toowine.preferences.PreferencesKey
-import com.jruizb.toowine.preferences.PreferencesProvider
 import com.jruizb.toowine.provides.Firebase
 
 
@@ -38,8 +33,6 @@ class FavoritesRecyclerAdapter(
 
     private var dbUsersRef: CollectionReference? =
         Firebase.provideUsersRef(firebaseFirestoreInstance)
-    private var dbFavRef: CollectionReference? =
-        Firebase.provideFavWinesRef(firebaseFirestoreInstance)
 
     /**
      * Crea un viewholder y su vista asociada, y los inicializa sin llegar a vincular aun el viewholder
@@ -73,12 +66,6 @@ class FavoritesRecyclerAdapter(
                     if (it.isSuccessful) {
                         for (docSnap: DocumentSnapshot in it.result!!) {
                             if (wineNameNotSpaces == docSnap.id) {
-//                                Toast.makeText(
-//                                    contexto,
-//                                    "Vino : " + favoriteItemsList[position].wineNameFavs
-//                                            + "\nPosición: " + position,
-//                                    Toast.LENGTH_SHORT
-//                                ).show()
                                 dbUsersRef?.document(currentUser.uid)
                                     ?.collection("favoriteWines")!!
                                     .document(wineNameNotSpaces)?.delete()

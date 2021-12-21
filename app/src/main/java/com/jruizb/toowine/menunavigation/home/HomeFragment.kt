@@ -2,7 +2,6 @@ package com.jruizb.toowine.menunavigation.home
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,16 +11,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.jruizb.toowine.R
 import com.jruizb.toowine.databinding.FragmentHomeBinding
 import com.jruizb.toowine.databinding.HomewineRecyclerItemsBinding
 import com.jruizb.toowine.domain.WineItems
+import com.jruizb.toowine.provides.Firebase.provideFirebaseAuthentication
+import com.jruizb.toowine.provides.Firebase.provideFirebaseFirestore
+import com.jruizb.toowine.util.CertificateJsoup
 import com.jruizb.toowine.util.Constants.NO_PRICE_WINE_RECYCLER
 import com.jruizb.toowine.util.Constants.NO_TYPE_WINE_RECYCLER
-import com.jruizb.toowine.util.CertificateJsoup
-import com.jruizb.toowine.util.Constants
 import com.jruizb.toowine.util.Constants.URI_DEALS
 import com.jruizb.toowine.util.Constants.URL_WEBSCRAPING
 import org.jetbrains.anko.doAsync
@@ -45,9 +43,8 @@ class HomeFragment : Fragment() {
     private var activityContext: Context? = null
 
     private val wineologoList = ArrayList<WineItems>()
-    private var favButton: ImageButton? = null;
+    private var favButton: ImageButton? = null
 
-    private var recy:HomeRecyclerAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,23 +62,22 @@ class HomeFragment : Fragment() {
         //Contexto de la actividad a la que está asociada este fragment
         activityContext = context
 
-        recy = HomeRecyclerAdapter(requireContext(), wineologoList)
         //Inicialización de firebase auth
-        firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuth = provideFirebaseAuthentication()
         //Inicialización de firestore para poder realizar las operaciones de lectura o escritura
-        firebaseFirestoreInstance = FirebaseFirestore.getInstance()
+        firebaseFirestoreInstance = provideFirebaseFirestore()
         //Obtiene la referencia de un documento de la db
         dbReference = firebaseFirestoreInstance!!.collection("client")
         dbFavReference = firebaseFirestoreInstance!!.collection("favoriteWines")
 
         dbUsersRef = firebaseFirestoreInstance!!.collection("users")
-        retrieveWineDealsInfoFromWeb()
+
     }
 
     override fun onStart() {
         super.onStart()
 
-//        checkFavorites()
+        retrieveWineDealsInfoFromWeb()
     }
 
     override fun onDestroyView() {
@@ -90,26 +86,10 @@ class HomeFragment : Fragment() {
     }
 
 
-//    private fun checkFavorites() {
-//            val userLoggedIn = firebaseAuth.currentUser
-//
-//        userLoggedIn?.let {
-//
-//        dbUsersRef?.document(userLoggedIn.uid)?.collection("favoriteWines")
-//            ?.whereEqualTo("userID", userLoggedIn.uid)
-//            ?.get()?.addOnCompleteListener {
-//                if (it.isSuccessful) {
-////                    Log.i("////", recy?.itemCount.toString())
-//                    for (docSnap: DocumentSnapshot in it.result!!) {
-//
-//                        favButton?.setBackgroundResource(R.drawable.ic_fav_selected_star_24)
-//                        Log.d("HomeFragment", docSnap.id + " => " + docSnap.data)
-//                    }
-//                }
-//            }
-//        }
-//    }
-
+    /**
+     * Función que, mediante la extracción de datos web, obtiene la información necesaria
+     * de las botellas de vino y las muestra en un listado horizontal
+     */
     private fun retrieveWineDealsInfoFromWeb() {
         var wineUrl: String
         var wineName: String
@@ -164,7 +144,6 @@ class HomeFragment : Fragment() {
                 context?.let {
                     //Le paso al adapter el contexto que es en este caso el de Main Activity y la lista
                     //con los argumentos que conforman un vino(Objeto)
-//                    val adapterRV = HomeRecyclerAdapter(context, wineologoList)
                     binding.fgHomeDealsWineRecyclerView.layoutManager =
                         LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                     binding.fgHomeDealsWineRecyclerView.adapter =

@@ -64,6 +64,4 @@ class HomeActivity : AppCompatActivity() {
     private fun isOnboardingOnSharedPreferences(context: Context): Boolean {
         return !(PreferencesProvider.getBool(context, PreferencesKey.ONBOARDING) ?: false)
     }
-
-
 }

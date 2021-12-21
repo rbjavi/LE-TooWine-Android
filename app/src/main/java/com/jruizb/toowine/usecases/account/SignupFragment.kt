@@ -13,18 +13,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jruizb.toowine.R
 import com.jruizb.toowine.databinding.FragmentSignupBinding
-import com.jruizb.toowine.domain.UserProfile
-import com.jruizb.toowine.main.HomeActivity
+import com.jruizb.toowine.provides.Firebase
 import java.util.*
 
 
 class SignupFragment : Fragment(){
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
-
-    private val homeActivity: HomeActivity? = null
-
-    private lateinit var profile: UserProfile
 
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var progressDialog: ProgressDialog
@@ -52,7 +47,7 @@ class SignupFragment : Fragment(){
         activityContext = context
 
         //Inicializacion de firebase para obtener una instancia de ese objeto
-        firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuth = Firebase.provideFirebaseAuthentication()
 
         //Inicialización de progressDialog
         if (context!=null) {
@@ -60,8 +55,6 @@ class SignupFragment : Fragment(){
             progressDialog.setTitle("Cargando...")
             progressDialog.setCanceledOnTouchOutside(false)
         }
-
-
     }
 
     override fun onStart() {
@@ -141,7 +134,6 @@ class SignupFragment : Fragment(){
         progressDialog.setMessage("Guardando información del usuario")
         val timestamp = System.currentTimeMillis()
         val date = Date(timestamp)  //parsea los milisengundos del sistema a fecha
-//        val dt = Instant.ofEpochSecond(timestamp).atZone(ZoneId.systemDefault()).toLocalDateTime()
 
         //ID autogenerado por firebaseauth y se lo pasamos a la key uid de la colección hashmap
         val  uid = firebaseAuth.uid

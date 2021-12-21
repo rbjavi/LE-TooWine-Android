@@ -116,6 +116,7 @@
 
 <!--    HomeRecyclerAdapter-->
     <string name="failed_to_get_document_data">Falló al obtener datos del documento en la base de datos</string>
+    <string name="data_inserted_successfully">Datos insertados exitosamente</string>
 
 
 </resources>

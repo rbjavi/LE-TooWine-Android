@@ -9,22 +9,13 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.jruizb.toowine.R
 import com.jruizb.toowine.databinding.HomewineRecyclerItemsBinding
 import com.jruizb.toowine.domain.WineItems
-import java.util.*
-
-import androidx.annotation.NonNull
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.*
-import com.google.firebase.firestore.EventListener
-import com.jruizb.toowine.domain.FavoriteItems
-import com.jruizb.toowine.preferences.PreferencesKey
-import com.jruizb.toowine.preferences.PreferencesProvider
 import com.jruizb.toowine.provides.Firebase
-import org.jetbrains.anko.sdk27.coroutines.onClick
-import kotlin.collections.ArrayList
+import java.util.*
 
 
 /**
@@ -60,19 +51,23 @@ class HomeRecyclerAdapter(
                 false
             )
         )
-
     }
 
     /**
-     * Recupera
+     * Enlaza nuevos datos al reutilizar las mismas filas que antes tenían otra información y no están
+     * visibles en ese momento en la pantalla.
+     *
+     * Modificada para que al clicar en el botón de favoritos inserte los datos de ese vino en la base de datos
+     * y active el botón de estado
      */
     override fun onBindViewHolder(holder: RecyclerHolder, position: Int) {
         holder.bind(wineItemsList[position])
 
-        Log.i("ADAPTER POS", position.toString())
         val favoriteButton = holder.itemView.findViewById<ImageButton>(R.id.wineStarImageButton)
         val currentUser = firebaseAuth.currentUser
 
+        // Datos de una botella de vino que serán agregados a una collección para ser insertados
+        // en la base de datos
         val userId = firebaseAuth.currentUser?.uid
         val imageW = wineItemsList[position].imageViewUrl
         val nameW = wineItemsList[position].name
@@ -89,11 +84,9 @@ class HomeRecyclerAdapter(
     //Al clicar en el botón de favoritos
         favoriteButton.setOnClickListener {
             if (currentUser != null) {
-//                if (!wineItemsList[position].favStatus) {
                 // Elimina los espacios del nombre de vino para usarlo como id de documento
                 val wineNameNotSpaces = nameW.filter { !it.isWhitespace() }
                 if (!favoriteButton.isSelected) {
-
                     // Inserta un vino a favoritos del usuario logueado
                     dbUsersRef?.document(currentUser.uid)
                         ?.collection("favoriteWines")?.document(wineNameNotSpaces)
@@ -103,9 +96,7 @@ class HomeRecyclerAdapter(
                             wineItemsList[position].favStatus = true
                             Toast.makeText(
                                 contexto,
-                                "Vino Agregado: " + wineItemsList[position].name
-                                        + "  ,Estado: " + wineItemsList[position].favStatus
-                                        + "\nPosición: " + position,
+                                contexto.getString(R.string.data_inserted_successfully),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -115,47 +106,23 @@ class HomeRecyclerAdapter(
                                 contexto.getString(R.string.failed_to_get_document_data) + " " + { e.message },
                                 Toast.LENGTH_LONG
                             ).show()
-//
                         }
                 } else {
                 //ELIMINA UN VINO AL CLICAR DESACTIVANDO LA STAR
-                    dbUsersRef?.document(currentUser.uid)?.collection("favoriteWines")
-                        ?.get()?.addOnCompleteListener {
-                            if (it.isSuccessful) {
-                                for (docSnap: DocumentSnapshot in it.result!!) {
-                                    if (wineNameNotSpaces == docSnap.id) {
-//                                Toast.makeText(
-//                                    contexto,
-//                                    "Vino : " + favoriteItemsList[position].wineNameFavs
-//                                            + "\nPosición: " + position,
-//                                    Toast.LENGTH_SHORT
-//                                ).show()
-                                        dbUsersRef?.document(currentUser.uid)
-                                            ?.collection("favoriteWines")!!
-                                            .document(wineNameNotSpaces)?.delete()
-                                    }
+                dbUsersRef?.document(currentUser.uid)?.collection("favoriteWines")
+                    ?.get()?.addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            for (docSnap: DocumentSnapshot in it.result!!) {
+                                if (wineNameNotSpaces == docSnap.id) {
+                                    dbUsersRef?.document(currentUser.uid)
+                                        ?.collection("favoriteWines")!!
+                                        .document(wineNameNotSpaces)?.delete()
                                 }
-                            } else {
-                                Log.d("ERROR DOC", "Error getting documents: ", it.exception)
                             }
+                        } else {
+                            Log.d("ERROR DOC", "Error getting documents: ", it.exception)
                         }
-//                   dbFavRef?.whereEqualTo("userID", userId)
-//                       ?.get()?.addOnCompleteListener { task ->
-//                        if (task.isSuccessful) {
-//                            for (document in task.result!!) {
-//                                if(wineItemsList[position].favStatus == document.getBoolean("state")) {
-//                                    favoriteButton.setBackgroundResource(R.drawable.ic_fav_unselected_star_24)
-//                                    wineItemsList[position].favStatus = false
-//                                    dbFavRef?.document(document.get("name").toString())?.delete()
-//                                }
-//
-//                                Log.d("DOC", document.id + " => " + document.data)
-//                                dbFavRef?.whereEqualTo("Documet", document.id)
-//                            }
-//                        } else {
-//                            Log.d("ERROR DOC", "Error getting documents: ", task.exception)
-//                        }
-//                    }
+                    }
                 }
             // AL CLICAR EL BOTÓN DE FAVORITOS SI EL USUARIO NO ESTÁ LOGUEADO
             } else {
@@ -166,7 +133,7 @@ class HomeRecyclerAdapter(
                 ).show()
             }
         }
-        //RECUPERACIÓN DE VINOS FAVORITOS DESDE FIRESTORE
+        //RECUPERACIÓN DE VINOS FAVORITOS DESDE FIRESTORE DB
         // Si hay usuario logueado, activa button star de los vinos que han sido seleccionados como favoritos
         // por ese usuario
         if (currentUser != null) {
@@ -175,14 +142,9 @@ class HomeRecyclerAdapter(
             ?.get()?.addOnCompleteListener {
                 if (it.isSuccessful) {
                     for (docSnap: DocumentSnapshot in it.result!!) {
-                        if (wineItemsList[position].name == docSnap.get("name")){
-                            holder.itemView.setOnClickListener {
-                                Toast.makeText(contexto,"pos$position"+" // "+wineItemsList[position],Toast.LENGTH_SHORT).show() }
+                        if (wineItemsList[position].name == docSnap.get("name")) {
                             favoriteButton?.setBackgroundResource(R.drawable.ic_fav_selected_star_24)
                         }
-
-                        //Log.d("DOC", docSnap.id + " => " + docSnap.data)
-
                     }
                 }
             }
